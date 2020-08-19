@@ -48,6 +48,9 @@
     <ClCompile Include="src\gui\graphicelement.cc">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
+    <ClCompile Include="src\gui\animatedelement.cc">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\engine\windowsystem.hh">
@@ -78,6 +81,9 @@
       <Filter>Archivos de origen</Filter>
     </ClInclude>
     <ClInclude Include="src\gui\graphicelement.hh">
+      <Filter>Archivos de origen</Filter>
+    </ClInclude>
+    <ClInclude Include="src\gui\animatedelement.hh">
       <Filter>Archivos de origen</Filter>
     </ClInclude>
   </ItemGroup>

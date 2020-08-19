@@ -67,6 +67,13 @@ class GraphicElement
       int positionY ( void ) const;
 
       /**
+      * Member function used to return the current component size;
+      * 
+      * @returns Size of the visual component.
+      */
+      Size renderSize ( void ) const;
+
+      /**
        * Member function used to set the position of the visual component via a position structure.
        * 
        * @param[in] pNewPosition New position components.
@@ -108,7 +115,7 @@ class GraphicElement
        * 
        * @param[in] pNewSize Size structure to update.
        */
-      void setSize ( const Size& pNewSize );
+      void setRenderSize ( const Size& pNewSize );
 
       /**
       * Member function used to update the size of the visual component via the individual components.
@@ -116,22 +123,22 @@ class GraphicElement
       * @param[in] pNewWidth  Width to set.
       * @param[in] pNewHeight Height to set.
       */
-      void setSize ( const int& pNewWidth ,
-                     const int& pNewHeight );
+      void setRenderSize ( const int& pNewWidth ,
+                           const int& pNewHeight );
 
       /**
       * Member function used to update the individual height component.
       * 
       * @param[in] pNewHeight New height of the component.
       */
-      void setSizeHeight ( const int& pNewHeight );
+      void setRenderSizeHeight ( const int& pNewHeight );
 
       /**
        * Member function used to update the individual width component.
        * 
        * @param[in] pNewWidth New width of the component.
        */
-      void setSizeWidth ( const int& pNewWidth );
+      void setRenderSizeWidth ( const int& pNewWidth );
 
       /**
        * Member function used to set the texture to use while drawing.
@@ -140,17 +147,11 @@ class GraphicElement
        */
       void setTexture ( SDL_Texture* pNewTexture );
 
-      /**
-       * Member function used to return the current component size;
-       * 
-       * @returns Size of the visual component.
-       */
-      Size size ( void ) const;
-
    protected:
       Position mPosition; /**< Position of the graphic element. */
 
-      Size mSize; /**< Size of the graphic element. */
+      Size mClipSize;   /**< Size of the area to clip from the texture. */
+      Size mRenderSize; /**< Size of the graphic element to be displayed. */
 
       SDL_Renderer* mRenderer; /**< Pointer to the renderer used to draw the element on screen. */
 

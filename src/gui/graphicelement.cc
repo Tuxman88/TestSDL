@@ -25,6 +25,11 @@ int GraphicElement::positionY ( void ) const
    return ( mPosition.Y );
 }
 
+GraphicElement::Size GraphicElement::renderSize ( void ) const
+{
+   return ( mRenderSize );
+}
+
 void GraphicElement::setPosition ( const GraphicElement::Position& pNewPosition )
 {
    mPosition = pNewPosition;
@@ -62,32 +67,32 @@ void GraphicElement::setRenderer ( SDL_Renderer* pNewRenderer )
    return;
 }
 
-void GraphicElement::setSize ( const Size& pNewSize )
+void GraphicElement::setRenderSize ( const Size& pNewSize )
 {
-   mSize = pNewSize;
+   mRenderSize = pNewSize;
 
    return;
 }
 
-void GraphicElement::setSize ( const int& pNewWidth ,
+void GraphicElement::setRenderSize ( const int& pNewWidth ,
                                const int& pNewHeight )
 {
-   mSize.Width  = pNewWidth;
-   mSize.Height = pNewHeight;
+   mRenderSize.Width  = pNewWidth;
+   mRenderSize.Height = pNewHeight;
 
    return;
 }
 
-void GraphicElement::setSizeHeight ( const int& pNewHeight )
+void GraphicElement::setRenderSizeHeight ( const int& pNewHeight )
 {
-   mSize.Height = pNewHeight;
+   mRenderSize.Height = pNewHeight;
 
    return;
 }
 
-void GraphicElement::setSizeWidth ( const int& pNewWidth )
+void GraphicElement::setRenderSizeWidth ( const int& pNewWidth )
 {
-   mSize.Width = pNewWidth;
+   mRenderSize.Width = pNewWidth;
 
    return;
 }
@@ -97,9 +102,4 @@ void GraphicElement::setTexture ( SDL_Texture* pNewTexture )
    mTexture = pNewTexture;
 
    return;
-}
-
-GraphicElement::Size GraphicElement::size ( void ) const
-{
-   return ( mSize );
 }

@@ -154,6 +154,7 @@
     <ClCompile Include="src\engine\videosystem.cc" />
     <ClCompile Include="src\engine\windowsystem.cc" />
     <ClCompile Include="src\game.cc" />
+    <ClCompile Include="src\gui\animatedelement.cc" />
     <ClCompile Include="src\gui\cursor.cc" />
     <ClCompile Include="src\gui\graphicelement.cc" />
   </ItemGroup>
@@ -166,6 +167,7 @@
     <ClInclude Include="src\engine\videosystem.hh" />
     <ClInclude Include="src\engine\windowsystem.hh" />
     <ClInclude Include="src\game.hh" />
+    <ClInclude Include="src\gui\animatedelement.hh" />
     <ClInclude Include="src\gui\cursor.hh" />
     <ClInclude Include="src\gui\graphicelement.hh" />
   </ItemGroup>

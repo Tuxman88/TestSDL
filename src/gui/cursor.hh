@@ -1,9 +1,9 @@
 # ifndef CURSOR_HH_
 # define CURSOR_HH_
 
-# include "graphicelement.hh"
+# include "animatedelement.hh"
 
-class Cursor : public GraphicElement
+class Cursor : public AnimatedElement
 {
    public:
       /**
