@@ -1,5 +1,6 @@
 # include "game.hh"
 
+# include <chrono>
 # include <iostream>
 # include <SDL.h>
 
@@ -173,12 +174,49 @@ void Game::processEvents ( std::shared_ptr< std::queue< SDL_Event > > pEventsToP
 
 void Game::start ( void )
 {
+	auto last_system_time = std::chrono::high_resolution_clock::now ();
+	double current_system_time_delta = 0;
+	double frame_time_accumulator = 0;
+	double frame_rate_time_accumulator = 0;
+	int frame_counter = 0;
+
 	while ( !mQuitGame )
 	{
+		// Process logic of the game.
 		processEvents ( mEngineSystem->readEvents () );
-		mEngineSystem->cleanScreen ();
-		drawGame ();
-		mEngineSystem->updateScreen ();
+
+		// How much time has passed?
+		auto current_system_time = std::chrono::high_resolution_clock::now ();
+		double current_cycle_time_delta = std::chrono::duration< double , std::micro > ( current_system_time - last_system_time ).count ();
+
+		// Set the last system time as the current system time
+		last_system_time = current_system_time;
+
+		// Update my accumulators related to the frame time and frame rate calculator accumulator.
+		frame_time_accumulator += current_cycle_time_delta;
+		frame_rate_time_accumulator += current_cycle_time_delta;
+
+		if ( frame_rate_time_accumulator >= 1000000 )
+		{
+			mDebugSystem->logToFile ( "FPS: " + ToString< int > ( frame_counter ) );
+			frame_counter = 0;
+			frame_rate_time_accumulator -= 1000000;
+		}
+
+		// A certain amount of microseconds have passed. Check if there have been enough microseconds
+		// to require drawing the game.
+		//
+		// 1 frame = 16 milliseconds
+		// 1 millisecond = 1000 microseconds
+		// 1 frame = 16000 microseconds.
+		if ( frame_time_accumulator >= 16000 )
+		{
+			frame_counter++;
+			frame_time_accumulator -= 16000;
+			mEngineSystem->cleanScreen ();
+			drawGame ();
+			mEngineSystem->updateScreen ();
+		}
 	}
 
 	return;
