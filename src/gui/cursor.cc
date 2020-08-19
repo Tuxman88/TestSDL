@@ -28,3 +28,21 @@ void Cursor::draw ( void )
 
    return;
 }
+
+void Cursor::updateTime ( const double& pTimeDelta )
+{
+   mTimeAccumulator += pTimeDelta;
+
+   // The cursor has 5 frames. One second has 1'000,000 microseconds.
+   // So, a frame passes every 200,000 microseconds
+   while ( mTimeAccumulator >= 200000 )
+   {
+      mCurrentFrame++;
+      mTimeAccumulator -= 200000;
+
+      if ( mCurrentFrame >= 5 )
+         mCurrentFrame = 0;
+   }
+
+   return;
+}

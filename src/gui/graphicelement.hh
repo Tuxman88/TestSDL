@@ -147,6 +147,13 @@ class GraphicElement
        */
       void setTexture ( SDL_Texture* pNewTexture );
 
+      /**
+       * Virtual member function used to update the element accordingly to the passage of time.
+       * 
+       * @param[in] pTimeDelta Update the visual component according to the time passage.
+       */
+      virtual void updateTime ( const double& pTimeDelta ) = 0;
+
    protected:
       Position mPosition; /**< Position of the graphic element. */
 
@@ -156,6 +163,8 @@ class GraphicElement
       SDL_Renderer* mRenderer; /**< Pointer to the renderer used to draw the element on screen. */
 
       SDL_Texture* mTexture; /**< Pointer to the corresponding texture to use, if any. */
+
+      double mTimeAccumulator;
 };
 
 # endif

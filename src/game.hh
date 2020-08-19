@@ -48,6 +48,13 @@ class Game : public SystemComponent
        */
       void processEvents ( std::shared_ptr< std::queue< SDL_Event > > pEventsToProcess );
 
+      /**
+       * Private member function used to update the game components regarding the time delta.
+       * 
+       * @param[in] pTimeDelta Time that has passed sine the last grame update.
+       */
+      void updateGame ( const double& pTimeDelta );
+
    private:
       std::shared_ptr< DebugSystem >  mDebugSystem;  /**< Shared pointer to the debug system. */
       std::shared_ptr< EngineSystem > mEngineSystem; /**< Shared pointer to the engine system. */

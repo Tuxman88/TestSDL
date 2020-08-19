@@ -2,7 +2,8 @@
 
 GraphicElement::GraphicElement ( void )
    : mRenderer ( nullptr) ,
-     mTexture ( nullptr )
+     mTexture ( nullptr ) ,
+     mTimeAccumulator ( 0 )
 {
 }
 

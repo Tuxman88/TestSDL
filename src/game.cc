@@ -196,6 +196,8 @@ void Game::start ( void )
 		frame_time_accumulator += current_cycle_time_delta;
 		frame_rate_time_accumulator += current_cycle_time_delta;
 
+		updateGame ( current_cycle_time_delta );
+
 		if ( frame_rate_time_accumulator >= 1000000 )
 		{
 			mDebugSystem->logToFile ( "FPS: " + ToString< int > ( frame_counter ) );
@@ -227,4 +229,11 @@ void Game::terminate ( void )
 	mEngineSystem->terminate ();
 
    return;
+}
+
+void Game::updateGame ( const double& pTimeDelta )
+{
+	mCursor->updateTime ( pTimeDelta );
+
+	return;
 }
