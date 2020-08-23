@@ -1,9 +1,9 @@
-# ifndef GRAPHICELEMENT_HH_
-# define GRAPHICELEMENT_HH_
+# ifndef VISUALELEMENT_HH_
+# define VISUALELEMENT_HH_
 
 # include <SDL.h>
 
-class GraphicElement
+class VisualElement
 {
    public:
       struct Position
@@ -26,19 +26,26 @@ class GraphicElement
          {
          }
 
-         int Height;
-         int Width;
+         unsigned int Height;
+         unsigned int Width;
       };
 
       /**
        * Explicit default constructor.
        */
-      explicit GraphicElement ( void );
+      explicit VisualElement ( void );
 
       /**
        * Virtual destructor.
        */
-      virtual ~GraphicElement ( void );
+      virtual ~VisualElement ( void );
+
+      /**
+       * Member function used to return the current component size;
+       * 
+       * @returns Size of the visual component.
+       */
+      Size clipSize ( void ) const;
 
       /**
        * Pure virtual member function used to draw the current figure in the screen, if needed.
@@ -67,11 +74,48 @@ class GraphicElement
       int positionY ( void ) const;
 
       /**
-      * Member function used to return the current component size;
-      * 
-      * @returns Size of the visual component.
-      */
+       * Member function used to return the current component size;
+       * 
+       * @returns Size of the visual component.
+       */
       Size renderSize ( void ) const;
+
+      /**
+       * Member function used to return the current scale factor applied to this element.
+       * 
+       * @returns Unsigned int value that represents the scale factor applied to the visual element when drawn.
+       */
+      unsigned int scaleFactor ( void ) const;
+
+      /**
+       * Member function used to set the current clip size.
+       * 
+       * @param[in] pNewClipSize New clip size to use.
+       */
+      void setClipSize ( const Size& pNewClipSize );
+
+      /**
+       * Member function used to set the current clip size.
+       * 
+       * @param[in] pWidth New width of the clip size.
+       * @param[in] pHeight New height of the clip size.
+       */
+      void setClipSize ( const unsigned int& pWidth ,
+                         const unsigned int& pHeight );
+
+      /**
+       * Member function used to set the current clip size.
+       * 
+       * @param[in] pNewClipSize New clip size to use.
+       */
+      void setClipSizeHeight ( const unsigned int& pNewHeight );
+
+      /**
+       * Member function used to set the current clip size.
+       * 
+       * @param[in] pNewClipSize New clip size to use.
+       */
+      void setClipSizeWidth ( const unsigned int& pNewWidth );
 
       /**
        * Member function used to set the position of the visual component via a position structure.
@@ -111,34 +155,11 @@ class GraphicElement
       void setRenderer ( SDL_Renderer* pNewRenderer );
 
       /**
-       * Member function used to update the size of the visual component via a Size structure.
+       * Member function used to update the scale factor of the image to draw.
        * 
-       * @param[in] pNewSize Size structure to update.
+       * @param[in] pNewScaleFactor New scale factor to apply.
        */
-      void setRenderSize ( const Size& pNewSize );
-
-      /**
-      * Member function used to update the size of the visual component via the individual components.
-      * 
-      * @param[in] pNewWidth  Width to set.
-      * @param[in] pNewHeight Height to set.
-      */
-      void setRenderSize ( const int& pNewWidth ,
-                           const int& pNewHeight );
-
-      /**
-      * Member function used to update the individual height component.
-      * 
-      * @param[in] pNewHeight New height of the component.
-      */
-      void setRenderSizeHeight ( const int& pNewHeight );
-
-      /**
-       * Member function used to update the individual width component.
-       * 
-       * @param[in] pNewWidth New width of the component.
-       */
-      void setRenderSizeWidth ( const int& pNewWidth );
+      void setScaleFactor ( const unsigned int& pNewScaleFactor );
 
       /**
        * Member function used to set the texture to use while drawing.
@@ -155,6 +176,12 @@ class GraphicElement
       virtual void updateTime ( const double& pTimeDelta ) = 0;
 
    protected:
+      /**
+       * Member function used to update the render size after a change in the scale factor.
+       */
+      void updateRenderSize ( void );
+
+   protected:
       Position mPosition; /**< Position of the graphic element. */
 
       Size mClipSize;   /**< Size of the area to clip from the texture. */
@@ -164,7 +191,9 @@ class GraphicElement
 
       SDL_Texture* mTexture; /**< Pointer to the corresponding texture to use, if any. */
 
-      double mTimeAccumulator;
+      double mTimeAccumulator; /**< Accumulator of time passed for any time-related calculation. */
+
+      unsigned int mScaleFactor; /**< Scale factor to apply to the clip size to get a render size. */
 };
 
 # endif

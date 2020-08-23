@@ -1,10 +1,9 @@
 # include "cursor.hh"
 
 Cursor::Cursor ( void )
-   : AnimatedElement ()
+   : AnimatedSprite ()
 {
-   setRenderSize ( 16 , 16 );
-   mClipSize = mRenderSize;
+   setClipSize ( 16 , 16 );
 }
 
 Cursor::~Cursor ( void )
@@ -13,14 +12,17 @@ Cursor::~Cursor ( void )
 
 void Cursor::draw ( void )
 {
+   // The destination area corresponds to the final area to draw on, considering the scale factor
    SDL_Rect destination_area;
    destination_area.x = mPosition.X;
    destination_area.y = mPosition.Y;
    destination_area.w = mRenderSize.Width;
    destination_area.h = mRenderSize.Height;
+
+   // The origin area from the texture
    SDL_Rect clip_area;
-   clip_area.x = mClipSize.Width * mCurrentFrame;
-   clip_area.y = 0;
+   clip_area.x = mClipSize.Width * mCurrentAnimationFrame;
+   clip_area.y = mClipSize.Height * mCurrentAnimationRow;
    clip_area.w = mClipSize.Width;
    clip_area.h = mClipSize.Height;
 
@@ -29,19 +31,32 @@ void Cursor::draw ( void )
    return;
 }
 
+void Cursor::setState ( const CursorState& pNewCursorState )
+{
+   mCursorState = pNewCursorState;
+
+   // This also affects the current animation row
+   mCurrentAnimationRow = static_cast< unsigned int > ( mCursorState );
+
+   if ( mCurrentAnimationRow > 2 )
+      mCurrentAnimationRow = 2;
+
+   return;
+}
+
 void Cursor::updateTime ( const double& pTimeDelta )
 {
    mTimeAccumulator += pTimeDelta;
 
-   // The cursor has 5 frames. One second has 1'000,000 microseconds.
-   // So, a frame passes every 200,000 microseconds
-   while ( mTimeAccumulator >= 200000 )
+   // The cursor has 10 frames. One second has 1'000,000 microseconds.
+   // So, a frame passes every 100,000 microseconds
+   while ( mTimeAccumulator >= 100000 )
    {
-      mCurrentFrame++;
-      mTimeAccumulator -= 200000;
+      mCurrentAnimationFrame++;
+      mTimeAccumulator -= 100000;
 
-      if ( mCurrentFrame >= 5 )
-         mCurrentFrame = 0;
+      if ( mCurrentAnimationFrame >= 10 )
+         mCurrentAnimationFrame = 0;
    }
 
    return;

@@ -23,6 +23,8 @@ bool WindowSystem::init ( void )
       return ( false );
    }
 
+   SDL_SetRelativeMouseMode ( SDL_TRUE );
+
    return ( true );
 }
 

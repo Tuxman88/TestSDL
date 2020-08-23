@@ -45,10 +45,10 @@
     <ClCompile Include="src\engine\resourcesystem.cc">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
-    <ClCompile Include="src\gui\graphicelement.cc">
+    <ClCompile Include="src\gui\visualelement.cc">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
-    <ClCompile Include="src\gui\animatedelement.cc">
+    <ClCompile Include="src\gui\animatedsprite.cc">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
   </ItemGroup>
@@ -80,10 +80,10 @@
     <ClInclude Include="src\engine\resourcesystem.hh">
       <Filter>Archivos de origen</Filter>
     </ClInclude>
-    <ClInclude Include="src\gui\graphicelement.hh">
+    <ClInclude Include="src\gui\visualelement.hh">
       <Filter>Archivos de origen</Filter>
     </ClInclude>
-    <ClInclude Include="src\gui\animatedelement.hh">
+    <ClInclude Include="src\gui\animatedsprite.hh">
       <Filter>Archivos de origen</Filter>
     </ClInclude>
   </ItemGroup>

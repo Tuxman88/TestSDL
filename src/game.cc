@@ -153,10 +153,12 @@ void Game::processEvents ( std::shared_ptr< std::queue< SDL_Event > > pEventsToP
 
 			case SDL_MOUSEBUTTONDOWN:
 				// A mouse button was pressed.
+				mCursor->setState ( Cursor::CursorState::Click );
 				break;
 
 			case SDL_MOUSEBUTTONUP:
 				// A mouse button was released.
+				mCursor->setState ( Cursor::CursorState::Normal );
 				break;
 
 			case SDL_MOUSEWHEEL:

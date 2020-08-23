@@ -154,9 +154,9 @@
     <ClCompile Include="src\engine\videosystem.cc" />
     <ClCompile Include="src\engine\windowsystem.cc" />
     <ClCompile Include="src\game.cc" />
-    <ClCompile Include="src\gui\animatedelement.cc" />
+    <ClCompile Include="src\gui\animatedsprite.cc" />
     <ClCompile Include="src\gui\cursor.cc" />
-    <ClCompile Include="src\gui\graphicelement.cc" />
+    <ClCompile Include="src\gui\visualelement.cc" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\engine\debugsystem.hh" />
@@ -167,9 +167,9 @@
     <ClInclude Include="src\engine\videosystem.hh" />
     <ClInclude Include="src\engine\windowsystem.hh" />
     <ClInclude Include="src\game.hh" />
-    <ClInclude Include="src\gui\animatedelement.hh" />
+    <ClInclude Include="src\gui\animatedsprite.hh" />
     <ClInclude Include="src\gui\cursor.hh" />
-    <ClInclude Include="src\gui\graphicelement.hh" />
+    <ClInclude Include="src\gui\visualelement.hh" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
