@@ -15,7 +15,9 @@ class ResourceSystem : public SystemComponent
       enum class ResourceIndex
       {
          Cursor = 0 ,
-         TotalIndexes = 1
+         TerrainSeaClear = 1 ,
+         TerrainSeaDark = 2 ,
+         TotalIndexes = 3
       };
 
       /**
