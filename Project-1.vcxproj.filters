@@ -51,6 +51,18 @@
     <ClCompile Include="src\gui\animatedsprite.cc">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
+    <ClCompile Include="src\gui\clearwater.cc">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
+    <ClCompile Include="src\gui\darkwater.cc">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
+    <ClCompile Include="src\gui\sea.cc">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
+    <ClCompile Include="src\gui\terrain.cc">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\engine\windowsystem.hh">
@@ -84,6 +96,18 @@
       <Filter>Archivos de origen</Filter>
     </ClInclude>
     <ClInclude Include="src\gui\animatedsprite.hh">
+      <Filter>Archivos de origen</Filter>
+    </ClInclude>
+    <ClInclude Include="src\gui\clearwater.hh">
+      <Filter>Archivos de origen</Filter>
+    </ClInclude>
+    <ClInclude Include="src\gui\darkwater.hh">
+      <Filter>Archivos de origen</Filter>
+    </ClInclude>
+    <ClInclude Include="src\gui\sea.hh">
+      <Filter>Archivos de origen</Filter>
+    </ClInclude>
+    <ClInclude Include="src\gui\terrain.hh">
       <Filter>Archivos de origen</Filter>
     </ClInclude>
   </ItemGroup>
