@@ -158,6 +158,7 @@
     <ClCompile Include="src\gui\clearwater.cc" />
     <ClCompile Include="src\gui\cursor.cc" />
     <ClCompile Include="src\gui\darkwater.cc" />
+    <ClCompile Include="src\gui\map.cc" />
     <ClCompile Include="src\gui\sea.cc" />
     <ClCompile Include="src\gui\terrain.cc" />
     <ClCompile Include="src\gui\visualelement.cc" />
@@ -175,6 +176,7 @@
     <ClInclude Include="src\gui\clearwater.hh" />
     <ClInclude Include="src\gui\cursor.hh" />
     <ClInclude Include="src\gui\darkwater.hh" />
+    <ClInclude Include="src\gui\map.hh" />
     <ClInclude Include="src\gui\sea.hh" />
     <ClInclude Include="src\gui\terrain.hh" />
     <ClInclude Include="src\gui\visualelement.hh" />
