@@ -11,6 +11,20 @@ int FromString ( const std::string& pValue )
    return ( result );
 }
 
+bool IsInteger ( const std::string& pValue )
+{
+   for ( int i = 0; i < pValue.size (); i++ )
+   {
+      if ( pValue.at ( i ) < '0'
+           || pValue.at ( i ) > '9' )
+      {
+         return ( false );
+      }
+   }
+
+   return ( true );
+}
+
 DebugSystem::DebugSystem ( void )
    : SystemComponent ()
 {

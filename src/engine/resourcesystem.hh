@@ -36,6 +36,13 @@ class ResourceSystem : public SystemComponent
       virtual bool init ( void ) override;
 
       /**
+       * Member function used to return the maps used in this game.
+       * 
+       * @returns Shared pointer to maps used in game.
+       */
+      std::shared_ptr< std::vector< std::vector< std::vector< char > > > > mapLayouts ( void );
+
+      /**
        * Member function used to return a pointer to a resource texture.
        *
        * @param[in] pResourceIndex Index of the resource required.
@@ -65,23 +72,36 @@ class ResourceSystem : public SystemComponent
 
    private:
       /**
+       * Private member function used to load the maps file.
+       * 
+       * @returns "true" if the file is loaded correctly, "false" if not.
+       */
+      bool loadMapsFile ( void );
+
+      /**
        * Private member function used to load the resource file with the indexes and paths.
+       * 
+       * @returns "true" if the file is loaded correctly, "false" if not.
        */
       bool loadResourceIndex ( void );
 
       /**
        * Private member function used to load the resource files.
+       * 
+       * @returns "true" if the file is loaded correctly, "false" if not.
        */
       bool loadResourceFiles ( void );
 
    private:
-      std::shared_ptr< DebugSystem >  mDebugSystem;
-      std::shared_ptr< RenderSystem > mRendererSystem;
+      std::shared_ptr< DebugSystem >  mDebugSystem;    /**< Shared pointer to the debug system used. */
+      std::shared_ptr< RenderSystem > mRendererSystem; /**< Shared pointer to the rendering system. */
 
-      std::map< ResourceIndex , std::string >  mResourceIndex;
-      std::map< ResourceIndex , SDL_Texture* > mResourceTextures;
+      std::map< ResourceIndex , std::string >  mResourceIndex;    /**< Map of the resource indexes and their corresponding file paths. */
+      std::map< ResourceIndex , SDL_Texture* > mResourceTextures; /**< Map of the resource indexes and the loaded textures generated from them. */
 
-      std::vector< ResourceIndex > mResourceIndexVector;
+      std::vector< ResourceIndex > mResourceIndexVector; /**< Vector of the loaded resource indexes. */
+
+      std::shared_ptr< std::vector< std::vector< std::vector< char > > > > mMapLayouts; /**< Vector of map layouts. Each map layout is a table, so, a vector (list of) of vector (height of each map) of vector (width of each map) */
 };
 
 # endif

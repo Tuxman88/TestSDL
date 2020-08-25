@@ -20,6 +20,7 @@ std::string ToString ( const T& pValue )
 }
 
 int FromString ( const std::string& pValue );
+bool IsInteger ( const std::string& pValue );
 
 class DebugSystem : public SystemComponent
 {
