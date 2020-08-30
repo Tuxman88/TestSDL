@@ -7,7 +7,7 @@
 ResourceSystem::ResourceSystem ( void )
    : SystemComponent ()
 {
-   mMapLayouts     = std::shared_ptr< std::vector< std::vector< std::vector< char > > > > ( new std::vector< std::vector< std::vector< char > > > () );
+   mMapLayouts = std::shared_ptr< std::vector< std::vector< std::vector< char > > > > ( new std::vector< std::vector< std::vector< char > > > () );
 }
 
 ResourceSystem::~ResourceSystem ( void )

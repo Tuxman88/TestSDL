@@ -85,6 +85,11 @@ SDL_Texture* EngineSystem::resource ( const ResourceSystem::ResourceIndex& pRequ
 	return ( mResourceSystem->resourceTexture ( pRequestedResourceIndex ) );
 }
 
+std::shared_ptr< ResourceSystem > EngineSystem::resourceSystem ( void ) const
+{
+	return ( mResourceSystem );
+}
+
 SDL_Renderer* EngineSystem::rootRenderer ( void )
 {
 	return ( mRenderSystem->rootRenderer () );

@@ -6,6 +6,11 @@
 class Terrain : public VisualElement
 {
    public:
+      enum class TerrainType
+      {
+         Sea = 0
+      };
+
       /**
        * Explicit default constructor.
        */
@@ -15,6 +20,23 @@ class Terrain : public VisualElement
        * Virtual destructor.
        */
       virtual ~Terrain ( void );
+
+      /**
+       * Member function used to set the current terrain type.
+       * 
+       * @param[in] pNewType New type to set.
+       */
+      void setType ( const TerrainType& pNewType );
+
+      /**
+       * Member function used to return the current terrain type.
+       * 
+       * @returns Current terrain type.
+       */
+      virtual TerrainType type ( void ) const;
+
+   protected:
+      TerrainType mTerrainType;
 };
 
 # endif

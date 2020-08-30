@@ -67,6 +67,13 @@ class EngineSystem : public SystemComponent
       SDL_Texture* resource ( const ResourceSystem::ResourceIndex& pRequestedResourceIndex );
 
       /**
+       * Member function used to return a shared pointer to the resource system.
+       * 
+       * @returns Shared pointer to the resource system.
+       */
+      std::shared_ptr< ResourceSystem > resourceSystem ( void ) const;
+
+      /**
       * Member function used to return a pointer to the root renderer of the SDL system.
       * 
       * @returns Pointer to the renderer used.

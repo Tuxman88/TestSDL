@@ -18,9 +18,8 @@ Game::~Game ( void )
 
 void Game::drawGame ( void )
 {
-	mSea->draw ();
+	mMap->draw ();
 	mCursor->draw ();
-
 	return;
 }
 
@@ -58,17 +57,21 @@ bool Game::init ( void )
 		}
 
 		mEngineSystem->terminate ();
-
 		return ( false );
 	}
 
 	mDebugSystem->logToFile ( "Engine started" );
+
+	// Initialize the cursor of the game
 	mCursor = std::shared_ptr< Cursor > ( new Cursor () );
 	mCursor->setRenderer ( mEngineSystem->rootRenderer () );
 	mCursor->setTexture ( mEngineSystem->resource ( ResourceSystem::ResourceIndex::Cursor ) );
-	mSea = std::shared_ptr< Sea > ( new Sea () );
-	mSea->setRenderer ( mEngineSystem->rootRenderer () );
-	mSea->setTexture ( mEngineSystem->resource ( ResourceSystem::ResourceIndex::TerrainSeaClear ) );
+
+	// Initialize the map
+	mMap = std::shared_ptr< Map > ( new Map () );
+	mMap->setRenderer ( mEngineSystem->rootRenderer () );
+	mMap->setResourceSystem ( mEngineSystem->resourceSystem () );
+	mMap->setCurrentMap ( 0 );
 	mDebugSystem->logToFile ( "Game started" );
    return ( true );
 }
@@ -235,6 +238,6 @@ void Game::terminate ( void )
 void Game::updateGame ( const double& pTimeDelta )
 {
 	mCursor->updateTime ( pTimeDelta );
-	mSea->updateTime ( pTimeDelta );
+	mMap->updateTime ( pTimeDelta );
 	return;
 }

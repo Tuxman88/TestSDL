@@ -5,6 +5,7 @@
 # include <SDL.h>
 
 # include "../engine/resourcesystem.hh"
+# include "terrain.hh"
 
 class Map
 {
@@ -39,13 +40,18 @@ class Map
       void setMapLayouts ( std::shared_ptr< std::vector< std::vector< std::vector< char > > > > pMapLayouts );
 
       /**
+       * Member function used to set the renderer system for the screen.
+       * 
+       * @param[in] pRendererSystem Pointer to the renderer to use.
+       */
+      void setRenderer ( SDL_Renderer* pRendererSystem );
+
+      /**
        * Member function used to set a resource used in the map.
        * 
-       * @param[in] pResourceIndex Index of the resource provided.
-       * @param[in] pResource Pointer to the resource required.
+       * @param[in] pResourceSystem Shared pointer to the resource system manager.
        */
-      void setResource ( const ResourceSystem::ResourceIndex& pResourceIndex ,
-                         SDL_Texture* pResource );
+      void setResourceSystem ( std::shared_ptr< ResourceSystem > pResourceSystem );
 
       /**
       * Member function used to update the element accordingly to the passage of time.
@@ -55,9 +61,13 @@ class Map
       void updateTime ( const double& pTimeDelta );
 
    private:
-      std::map< ResourceSystem::ResourceIndex , SDL_Texture* > mResources; /**< Index of resources to manage. */
+      std::shared_ptr< ResourceSystem > mResourceSystem; /**< Shared pointer to the resource system. */
 
       std::shared_ptr< std::vector< std::vector< std::vector< char > > > > mMapLayouts; /**< Vector of map layouts to use. */
+
+      SDL_Renderer* mRenderer; /**< Pointer to the renderer system. */
+
+      std::vector< std::vector< Terrain* > > mCurrentMap; /**< Table with the current map terrain */
 };
 
 # endif
