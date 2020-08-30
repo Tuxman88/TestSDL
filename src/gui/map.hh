@@ -69,6 +69,12 @@ class Map
       void updateTime ( const double& pTimeDelta );
 
    private:
+      /**
+       * Member function used to update the current position of the map grid depending on the view type.
+       */
+      void switchViewType ( void );
+
+   private:
       std::shared_ptr< ResourceSystem > mResourceSystem; /**< Shared pointer to the resource system. */
 
       std::shared_ptr< std::vector< std::vector< std::vector< char > > > > mMapLayouts; /**< Vector of map layouts to use. */
