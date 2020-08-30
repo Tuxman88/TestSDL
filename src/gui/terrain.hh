@@ -1,9 +1,9 @@
 # ifndef TERRAIN_HH_
 # define TERRAIN_HH_
 
-# include "animatedsprite.hh"
+# include "visualelement.hh"
 
-class Terrain : public AnimatedSprite
+class Terrain : public VisualElement
 {
    public:
       /**

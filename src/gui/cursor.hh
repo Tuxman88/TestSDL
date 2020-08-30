@@ -30,10 +30,10 @@ class Cursor : public VisualElement
       virtual void draw ( void ) override;
 
       /**
-      * Member function used to set the required renderer for the game.
-      * 
-      * @param[in] pNewRenderer Renderer used to draw.
-      */
+       * Member function used to set the required renderer for the game.
+       * 
+       * @param[in] pNewRenderer Renderer used to draw.
+       */
       virtual void setRenderer ( SDL_Renderer* pNewRenderer ) override;
 
       /**

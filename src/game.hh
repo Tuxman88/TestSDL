@@ -6,6 +6,7 @@
 # include "engine/enginesystem.hh"
 # include "engine/systemcomponent.hh"
 # include "gui/cursor.hh"
+# include "gui/sea.hh"
 
 class Game : public SystemComponent
 {
@@ -51,7 +52,7 @@ class Game : public SystemComponent
       /**
        * Private member function used to update the game components regarding the time delta.
        * 
-       * @param[in] pTimeDelta Time that has passed sine the last grame update.
+       * @param[in] pTimeDeltas Time that has passed sine the last grame update.
        */
       void updateGame ( const double& pTimeDelta );
 
@@ -59,6 +60,7 @@ class Game : public SystemComponent
       std::shared_ptr< DebugSystem >  mDebugSystem;  /**< Shared pointer to the debug system. */
       std::shared_ptr< EngineSystem > mEngineSystem; /**< Shared pointer to the engine system. */
       std::shared_ptr< Cursor >       mCursor;       /**< Shared pointer to the cursor of the game. */
+      std::shared_ptr< Sea >          mSea;          /**< Shared pointer to the background sea of the game. */
 
       bool mQuitGame; /**< Flag used to stop the game. */
 };

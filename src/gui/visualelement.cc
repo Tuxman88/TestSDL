@@ -1,7 +1,8 @@
 # include "visualelement.hh"
 
 VisualElement::VisualElement ( void )
-   : mRenderer ( nullptr) ,
+   : mPerspectiveView ( PerspectiveView::TopView ) ,
+     mRenderer ( nullptr) ,
      mTexture ( nullptr ) ,
      mTimeAccumulator ( 0 ) ,
      mScaleFactor ( 1 )
@@ -88,6 +89,12 @@ void VisualElement::setClipSizeWidth ( const unsigned int& pNewWidth )
       updateRenderValues ();
    }
 
+   return;
+}
+
+void VisualElement::setPerspectiveView ( const PerspectiveView& pNewPerspectiveView )
+{
+   mPerspectiveView = pNewPerspectiveView;
    return;
 }
 

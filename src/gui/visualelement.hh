@@ -46,6 +46,12 @@ class VisualElement
          unsigned int Width;
       };
 
+      enum class PerspectiveView
+      {
+         TopView = 0 ,
+         IsometricView         
+      };
+
       /**
        * Explicit default constructor.
        */
@@ -134,6 +140,13 @@ class VisualElement
       void setClipSizeWidth ( const unsigned int& pNewWidth );
 
       /**
+       * Member function used to set the current view type.
+       * 
+       * @param[in] pNewPerspectiveView Perspective for the current view.
+       */
+      virtual void setPerspectiveView ( const PerspectiveView& pNewPerspectiveView );
+
+      /**
        * Member function used to set the position of the visual component via a position structure.
        * 
        * @param[in] pNewPosition New position components.
@@ -203,6 +216,8 @@ class VisualElement
 
       Size mClipSize;   /**< Size of the area to clip from the texture. */
       Size mRenderSize; /**< Size of the graphic element to be displayed. */
+
+      PerspectiveView mPerspectiveView; /**< Perspective for the current view. */
 
       SDL_Renderer* mRenderer; /**< Pointer to the renderer used to draw the element on screen. */
 

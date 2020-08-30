@@ -155,9 +155,7 @@
     <ClCompile Include="src\engine\windowsystem.cc" />
     <ClCompile Include="src\game.cc" />
     <ClCompile Include="src\gui\animatedsprite.cc" />
-    <ClCompile Include="src\gui\clearwater.cc" />
     <ClCompile Include="src\gui\cursor.cc" />
-    <ClCompile Include="src\gui\darkwater.cc" />
     <ClCompile Include="src\gui\map.cc" />
     <ClCompile Include="src\gui\sea.cc" />
     <ClCompile Include="src\gui\terrain.cc" />
@@ -173,9 +171,7 @@
     <ClInclude Include="src\engine\windowsystem.hh" />
     <ClInclude Include="src\game.hh" />
     <ClInclude Include="src\gui\animatedsprite.hh" />
-    <ClInclude Include="src\gui\clearwater.hh" />
     <ClInclude Include="src\gui\cursor.hh" />
-    <ClInclude Include="src\gui\darkwater.hh" />
     <ClInclude Include="src\gui\map.hh" />
     <ClInclude Include="src\gui\sea.hh" />
     <ClInclude Include="src\gui\terrain.hh" />

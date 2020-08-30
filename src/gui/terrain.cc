@@ -1,7 +1,7 @@
 # include "terrain.hh"
 
 Terrain::Terrain ( void )
-   : AnimatedSprite ()
+   : VisualElement ()
 {
 }
 
