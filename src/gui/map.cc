@@ -83,6 +83,14 @@ void Map::setCurrentMap ( const unsigned int& pCurrentMap )
                new_terrain->setRenderer ( mRenderer );
                new_terrain->setTexture ( mResourceSystem->resourceTexture ( ResourceSystem::ResourceIndex::TerrainSeaClear ) );
                break;
+
+            case 'd':
+               new_terrain = new Sea ();
+               new_terrain->setPosition ( current_position );
+               new_terrain->setType ( Terrain::TerrainType::Sea );
+               new_terrain->setRenderer ( mRenderer );
+               new_terrain->setTexture ( mResourceSystem->resourceTexture ( ResourceSystem::ResourceIndex::TerrainSeaDark ) );
+               break;
          }
 
          new_row.push_back ( new_terrain );

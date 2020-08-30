@@ -36,7 +36,7 @@ class Terrain : public VisualElement
       virtual TerrainType type ( void ) const;
 
    protected:
-      TerrainType mTerrainType;
+      TerrainType mTerrainType; /**< Member function used to remember the kind of terrain found. */
 };
 
 # endif
