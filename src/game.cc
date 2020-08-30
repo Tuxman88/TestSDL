@@ -71,6 +71,7 @@ bool Game::init ( void )
 	mMap = std::shared_ptr< Map > ( new Map () );
 	mMap->setRenderer ( mEngineSystem->rootRenderer () );
 	mMap->setResourceSystem ( mEngineSystem->resourceSystem () );
+	mMap->setPerspectiveView ( VisualElement::PerspectiveView::TopView );
 	mMap->setCurrentMap ( 0 );
 	mDebugSystem->logToFile ( "Game started" );
    return ( true );

@@ -104,6 +104,23 @@ void Map::setCurrentMap ( const unsigned int& pCurrentMap )
    return;
 }
 
+void Map::setPerspectiveView ( const VisualElement::PerspectiveView& pNewPerspectiveView )
+{
+   mPerspectiveView = pNewPerspectiveView;
+   std::size_t vertical_size;
+   std::size_t horizontal_size;
+   vertical_size = mCurrentMap.size ();
+
+   for ( std::size_t i = 0; i < vertical_size; i++ )
+   {
+      horizontal_size = mCurrentMap[ i ].size ();
+
+      for ( std::size_t j = 0; j < horizontal_size; j++ )
+         mCurrentMap[ i ][ j ]->setPerspectiveView ( pNewPerspectiveView );
+   }
+   return;
+}
+
 void Map::setMapLayouts ( std::shared_ptr< std::vector< std::vector< std::vector< char > > > > pMapLayouts )
 {
    mMapLayouts = pMapLayouts;

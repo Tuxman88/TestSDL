@@ -6,6 +6,7 @@
 
 # include "../engine/resourcesystem.hh"
 # include "terrain.hh"
+# include "visualelement.hh"
 
 class Map
 {
@@ -40,6 +41,13 @@ class Map
       void setMapLayouts ( std::shared_ptr< std::vector< std::vector< std::vector< char > > > > pMapLayouts );
 
       /**
+       * Member function used to configure the new view of the map.
+       * 
+       * @param[in] pNewPerspectiveView New view style.
+       */
+      void setPerspectiveView ( const VisualElement::PerspectiveView& pNewPerspectiveView );
+
+      /**
        * Member function used to set the renderer system for the screen.
        * 
        * @param[in] pRendererSystem Pointer to the renderer to use.
@@ -65,9 +73,11 @@ class Map
 
       std::shared_ptr< std::vector< std::vector< std::vector< char > > > > mMapLayouts; /**< Vector of map layouts to use. */
 
+      std::vector< std::vector< Terrain* > > mCurrentMap; /**< Table with the current map terrain */
+
       SDL_Renderer* mRenderer; /**< Pointer to the renderer system. */
 
-      std::vector< std::vector< Terrain* > > mCurrentMap; /**< Table with the current map terrain */
+      VisualElement::PerspectiveView mPerspectiveView; /**< Type of view for the map. */
 };
 
 # endif

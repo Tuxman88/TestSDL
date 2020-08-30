@@ -12,7 +12,7 @@ Sea::Sea ( void )
    settings.FramesInRow = 10;
    settings.FrameTime = 1000000 / 10; // Time for 10 frames per second.
    settings.LoopAnimation = true;
-   settings.LoopDelay = 1000000;
+   settings.LoopDelay = 0;
    mSeaSprite.setAnimationSettings ( 0 , settings );
 
    // Profile for top view.
@@ -21,7 +21,7 @@ Sea::Sea ( void )
    settings.FramesInRow = 10;
    settings.FrameTime = 1000000 / 10; // Time for 10 frames per second.
    settings.LoopAnimation = true;
-   settings.LoopDelay = 1000000;
+   settings.LoopDelay = 0;
    mSeaSprite.setAnimationSettings ( 1 , settings );
 }
 
