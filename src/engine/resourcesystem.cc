@@ -18,19 +18,13 @@ ResourceSystem::~ResourceSystem ( void )
 bool ResourceSystem::init ( void )
 {
    if ( !loadResourceIndex () )
-   {
       return ( false );
-   }
 
    if ( !loadResourceFiles () )
-   {
       return ( false );
-   }
 
    if ( !loadMapsFile () )
-   {
       return ( false );
-   }
 
    return ( true );
 }
@@ -42,9 +36,7 @@ bool ResourceSystem::loadMapsFile ( void )
    index_file.open ( "res/maps.lst" );
 
    if ( !index_file.is_open () )
-   {
       return ( false );
-   }
 
    // Now try to load its contents. The contents should be a series of lines. Something
    // like this:
@@ -59,9 +51,7 @@ bool ResourceSystem::loadMapsFile ( void )
    std::getline ( index_file , total_maps_count_string );
 
    if ( !IsInteger ( total_maps_count_string ) )
-   {
       return ( false );
-   }
 
    int total_maps_count = FromString ( total_maps_count_string );
    mMapLayouts->clear ();
@@ -75,15 +65,12 @@ bool ResourceSystem::loadMapsFile ( void )
 
       if ( !IsInteger ( width_string )
            || !IsInteger ( height_string ) )
-      {
          return ( false );
-      }
 
       int width;
       int height;
       width  = FromString ( width_string );
       height = FromString ( height_string );
-
       std::vector< std::vector< char > > raw_map;
       std::string raw_line;
 
@@ -92,16 +79,12 @@ bool ResourceSystem::loadMapsFile ( void )
          std::getline ( index_file , raw_line );
 
          if ( raw_line.size () != width )
-         {
             return ( false );
-         }
 
          std::vector< char > line;
          
          for ( int k = 0; k < width; k++ )
-         {
             line.push_back ( raw_line[ k ] );
-         }
 
          raw_map.push_back ( line );
       }
@@ -110,7 +93,6 @@ bool ResourceSystem::loadMapsFile ( void )
    }
 
    index_file.close ();
-
    return ( true );
 }
 
@@ -121,9 +103,7 @@ bool ResourceSystem::loadResourceIndex ( void )
    index_file.open ( "res/index.lst" );
 
    if ( !index_file.is_open () )
-   {
       return ( false );
-   }
 
    // Now try to load its contents. The contents should be a series of lines. Something
    // like this:
@@ -154,27 +134,23 @@ bool ResourceSystem::loadResourceIndex ( void )
 
    // Did I loaded the required amount of indexes?
    if ( mResourceIndexVector.size () != static_cast< int > ( ResourceIndex::TotalIndexes ) )
-   {
        return ( false );
-   }
 
    return ( true );
 }
 
 bool ResourceSystem::loadResourceFiles ( void )
 {
-   int size;
-   size = static_cast< int > ( mResourceIndexVector.size () );
+   std::size_t size;
+   size = mResourceIndexVector.size ();
 
-   for ( int i = 0; i < size; i++ )
+   for ( std::size_t i = 0; i < size; i++ )
    {
       SDL_Texture* texture = IMG_LoadTexture ( mRendererSystem->rootRenderer () ,
                                                mResourceIndex[ mResourceIndexVector[ i ] ].c_str () );
 
       if ( texture == nullptr )
-      {
          return ( false );
-      }
 
       mResourceTextures[ mResourceIndexVector[ i ] ] = texture;
    }
@@ -195,23 +171,21 @@ SDL_Texture* ResourceSystem::resourceTexture ( const ResourceIndex& pResourceInd
 void ResourceSystem::setDebugSystem ( std::shared_ptr< DebugSystem > pDebugSystem )
 {
    mDebugSystem = pDebugSystem;
-
    return;
 }
 
 void ResourceSystem::setRendererSystem ( std::shared_ptr< RenderSystem > pRendererSystem )
 {
    mRendererSystem = pRendererSystem;
-
    return;
 }
 
 void ResourceSystem::terminate ( void )
 {
-   int size;
-   size = static_cast< int > ( mResourceIndexVector.size () );
+   std::size_t size;
+   size = mResourceIndexVector.size ();
 
-   for ( int i = 0; i < size; i++ )
+   for ( std::size_t i = 0; i < size; i++ )
    {
       SDL_Texture* texture = mResourceTextures[ mResourceIndexVector[ i ] ];
       mResourceTextures[ mResourceIndexVector[ i ] ] = nullptr;
@@ -221,6 +195,5 @@ void ResourceSystem::terminate ( void )
    mResourceIndex.clear ();
    mResourceTextures.clear ();
    mResourceIndexVector.clear ();
-
    return;
 }

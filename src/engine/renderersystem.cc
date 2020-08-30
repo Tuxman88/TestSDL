@@ -22,7 +22,6 @@ void RenderSystem::clearScreen ( void )
 
    // Clean the renderer
    SDL_RenderClear ( mSDLRenderer );
-
    return;
 }
 
@@ -34,9 +33,7 @@ bool RenderSystem::init ( void )
                                        SDL_RENDERER_ACCELERATED ); // We need a hardware accelerated drawing and vsync
 
    if ( mSDLRenderer == nullptr )
-   {
       return ( false );
-   }
 
    return ( true );
 }
@@ -49,7 +46,6 @@ SDL_Renderer* RenderSystem::rootRenderer ( void )
 void RenderSystem::setWindowSystem ( std::shared_ptr< WindowSystem > pWindowSystem )
 {
    mWindowSystem = pWindowSystem;
-
    return;
 }
 
@@ -67,6 +63,5 @@ void RenderSystem::terminate ( void )
 void RenderSystem::updateScreen ( void )
 {
    SDL_RenderPresent ( mSDLRenderer );
-
    return;
 }

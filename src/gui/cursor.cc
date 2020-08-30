@@ -1,9 +1,19 @@
 # include "cursor.hh"
 
 Cursor::Cursor ( void )
-   : AnimatedSprite ()
+   : VisualElement () ,
+     mCursorState ( CursorState::Normal )
 {
-   setClipSize ( 16 , 16 );
+   // Lets create the profile of the animations. For now, the 3 states of the cursor are animated the same. The image
+   // resource contains 10 frames in 3 rows, each row has sprites of the same 16x16 pixels.
+   AnimatedSprite::AnimationRowSettings settings;
+   settings.ClipSize.Height = 16;
+   settings.ClipSize.Width = 16;
+   settings.FramesInRow = 10;
+   settings.FrameTime = 1000000 / 10; // Time for 10 frames per second.
+   settings.LoopAnimation = true;
+   settings.LoopDelay = 1000000;
+   mCursorSprite.setAnimationSettings ( 2 , settings ); // Since I haven't set config for rows 0 and 1, the animation will copy the settings for those unknown settings.
 }
 
 Cursor::~Cursor ( void )
@@ -12,52 +22,39 @@ Cursor::~Cursor ( void )
 
 void Cursor::draw ( void )
 {
-   // The destination area corresponds to the final area to draw on, considering the scale factor
-   SDL_Rect destination_area;
-   destination_area.x = mPosition.X;
-   destination_area.y = mPosition.Y;
-   destination_area.w = mRenderSize.Width;
-   destination_area.h = mRenderSize.Height;
+   mCursorSprite.setPosition ( mPosition );
+   mCursorSprite.draw ();
+   return;
+}
 
-   // The origin area from the texture
-   SDL_Rect clip_area;
-   clip_area.x = mClipSize.Width * mCurrentAnimationFrame;
-   clip_area.y = mClipSize.Height * mCurrentAnimationRow;
-   clip_area.w = mClipSize.Width;
-   clip_area.h = mClipSize.Height;
+void Cursor::setRenderer ( SDL_Renderer* pNewRenderer )
+{
+   mCursorSprite.setRenderer ( pNewRenderer );
+   return;
+}
 
-   SDL_RenderCopy ( mRenderer , mTexture , &clip_area , &destination_area );
+void Cursor::setScaleFactor ( const unsigned int& pNewScaleFactor )
+{
+   mCursorSprite.setScaleFactor ( pNewScaleFactor );
+   return;
+}
 
+void Cursor::setTexture ( SDL_Texture* pNewTexture )
+{
+   mCursorSprite.setTexture ( pNewTexture );
    return;
 }
 
 void Cursor::setState ( const CursorState& pNewCursorState )
 {
-   mCursorState = pNewCursorState;
-
    // This also affects the current animation row
-   mCurrentAnimationRow = static_cast< unsigned int > ( mCursorState );
-
-   if ( mCurrentAnimationRow > 2 )
-      mCurrentAnimationRow = 2;
-
+   mCursorState = pNewCursorState;
+   mCursorSprite.setCurrentAnimationRow ( static_cast< unsigned int > ( mCursorState ) );
    return;
 }
 
 void Cursor::updateTime ( const double& pTimeDelta )
 {
-   mTimeAccumulator += pTimeDelta;
-
-   // The cursor has 10 frames. One second has 1'000,000 microseconds.
-   // So, a frame passes every 100,000 microseconds
-   while ( mTimeAccumulator >= 100000 )
-   {
-      mCurrentAnimationFrame++;
-      mTimeAccumulator -= 100000;
-
-      if ( mCurrentAnimationFrame >= 10 )
-         mCurrentAnimationFrame = 0;
-   }
-
+   mCursorSprite.updateTime ( pTimeDelta );
    return;
 }

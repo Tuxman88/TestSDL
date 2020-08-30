@@ -7,20 +7,15 @@ int FromString ( const std::string& pValue )
 
    processor << pValue;
    processor >> result;
-
    return ( result );
 }
 
 bool IsInteger ( const std::string& pValue )
 {
-   for ( int i = 0; i < pValue.size (); i++ )
-   {
+   for ( std::size_t i = 0; i < pValue.size (); i++ )
       if ( pValue.at ( i ) < '0'
            || pValue.at ( i ) > '9' )
-      {
          return ( false );
-      }
-   }
 
    return ( true );
 }
@@ -38,7 +33,6 @@ DebugSystem::~DebugSystem ( void )
 bool DebugSystem::init ( void )
 {
    mLogFile.open ( "output.txt" );
-
    return ( true );
 }
 
@@ -56,9 +50,7 @@ void DebugSystem::logToFile ( const std::string& pMessage )
 void DebugSystem::terminate ( void )
 {
    if ( mLogFile.is_open () )
-   {
       mLogFile.close ();
-   }
 
    return;
 }

@@ -26,12 +26,10 @@ void Game::drawGame ( void )
 bool Game::init ( void )
 {
 	mDebugSystem = mEngineSystem->debugSystem ();
-
 	mDebugSystem->logToFile ( "Starting engine" );
 
 	if ( !mEngineSystem->init () )
 	{
-		
 		EngineSystem::InitStatus init_status;
 		init_status = mEngineSystem->status ();
 
@@ -68,7 +66,6 @@ bool Game::init ( void )
 	mCursor->setRenderer ( mEngineSystem->rootRenderer () );
 	mCursor->setTexture ( mEngineSystem->resource ( ResourceSystem::ResourceIndex::Cursor ) );
 	mDebugSystem->logToFile ( "Game started" );
-
    return ( true );
 }
 
@@ -197,7 +194,6 @@ void Game::start ( void )
 		// Update my accumulators related to the frame time and frame rate calculator accumulator.
 		frame_time_accumulator += current_cycle_time_delta;
 		frame_rate_time_accumulator += current_cycle_time_delta;
-
 		updateGame ( current_cycle_time_delta );
 
 		if ( frame_rate_time_accumulator >= 1000000 )
@@ -229,13 +225,11 @@ void Game::start ( void )
 void Game::terminate ( void )
 {
 	mEngineSystem->terminate ();
-
    return;
 }
 
 void Game::updateGame ( const double& pTimeDelta )
 {
 	mCursor->updateTime ( pTimeDelta );
-
 	return;
 }

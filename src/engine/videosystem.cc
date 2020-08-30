@@ -16,9 +16,7 @@ VideoSystem::~VideoSystem ( void )
 bool VideoSystem::init ( void )
 {
 	if ( SDL_Init ( SDL_INIT_VIDEO ) )
-	{
 		return ( false );
-	}
 
    return ( true );
 }

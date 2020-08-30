@@ -19,12 +19,9 @@ bool WindowSystem::init ( void )
                                    SDL_WINDOW_OPENGL ); // An OpenGL controlled window.
 
    if ( mSDLWindow == nullptr )
-   {
       return ( false );
-   }
 
    SDL_SetRelativeMouseMode ( SDL_TRUE );
-
    return ( true );
 }
 

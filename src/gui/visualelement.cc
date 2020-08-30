@@ -49,7 +49,7 @@ void VisualElement::setClipSize ( const Size& pNewClipSize )
         && pNewClipSize.Width > 0 )
    {
       mClipSize = pNewClipSize;
-      updateRenderSize ();
+      updateRenderValues ();
    }
 
    return;
@@ -63,7 +63,7 @@ void VisualElement::setClipSize ( const unsigned int& pWidth ,
    {
       mClipSize.Height = pHeight;
       mClipSize.Width = pWidth;
-      updateRenderSize ();
+      updateRenderValues ();
    }
 
    return;
@@ -74,7 +74,7 @@ void VisualElement::setClipSizeHeight ( const unsigned int& pNewHeight )
    if ( pNewHeight > 0 )
    {
       mClipSize.Height = pNewHeight;
-      updateRenderSize ();
+      updateRenderValues ();
    }
 
    return;
@@ -85,7 +85,7 @@ void VisualElement::setClipSizeWidth ( const unsigned int& pNewWidth )
    if ( pNewWidth > 0 )
    {
       mClipSize.Width = pNewWidth;
-      updateRenderSize ();
+      updateRenderValues ();
    }
 
    return;
@@ -94,7 +94,7 @@ void VisualElement::setClipSizeWidth ( const unsigned int& pNewWidth )
 void VisualElement::setPosition ( const VisualElement::Position& pNewPosition )
 {
    mPosition = pNewPosition;
-
+   updateRenderValues ();
    return;
 }
 
@@ -103,28 +103,27 @@ void VisualElement::setPosition ( const int& pNewX ,
 {
    mPosition.X = pNewX;
    mPosition.Y = pNewY;
-
+   updateRenderValues ();
    return;
 }
 
 void VisualElement::setPositionX ( const int& pNewX )
 {
    mPosition.X = pNewX;
-
+   updateRenderValues ();
    return;
 }
 
 void VisualElement::setPositionY ( const int& pNewY )
 {
    mPosition.Y = pNewY;
-
+   updateRenderValues ();
    return;
 }
 
 void VisualElement::setRenderer ( SDL_Renderer* pNewRenderer )
 {
    mRenderer = pNewRenderer;
-
    return;
 }
 
@@ -133,7 +132,7 @@ void VisualElement::setScaleFactor ( const unsigned int& pNewScaleFactor )
    if ( pNewScaleFactor >= 1 )
    {
       mScaleFactor = pNewScaleFactor;
-      updateRenderSize ();
+      updateRenderValues ();
    }
 
    return;
@@ -142,14 +141,12 @@ void VisualElement::setScaleFactor ( const unsigned int& pNewScaleFactor )
 void VisualElement::setTexture ( SDL_Texture* pNewTexture )
 {
    mTexture = pNewTexture;
-
    return;
 }
 
-void VisualElement::updateRenderSize ( void )
+void VisualElement::updateRenderValues ( void )
 {
-   mRenderSize.Width  = mClipSize.Width  * mScaleFactor;
-   mRenderSize.Height = mClipSize.Height * mScaleFactor;
-
+   mRenderPosition = mPosition.scaled ( mScaleFactor );
+   mRenderSize     = mClipSize.scaled ( mScaleFactor );
    return;
 }

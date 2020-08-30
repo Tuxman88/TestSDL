@@ -14,6 +14,14 @@ class VisualElement
          {
          }
 
+         Position scaled ( const unsigned int& pScaleValue )
+         {
+            Position temporal;
+            temporal.X = X * pScaleValue;
+            temporal.Y = Y * pScaleValue;
+            return ( temporal );
+         }
+
          int X;
          int Y;
       };
@@ -24,6 +32,14 @@ class VisualElement
             : Height ( 1 ) ,
               Width ( 1 )
          {
+         }
+
+         Size scaled ( const unsigned int& pScaleValue )
+         {
+            Size temporal;
+            temporal.Width  = Width  * pScaleValue;
+            temporal.Height = Height * pScaleValue;
+            return ( temporal );
          }
 
          unsigned int Height;
@@ -152,21 +168,21 @@ class VisualElement
        * 
        * @param[in] pNewRenderer Renderer used to draw.
        */
-      void setRenderer ( SDL_Renderer* pNewRenderer );
+      virtual void setRenderer ( SDL_Renderer* pNewRenderer );
 
       /**
        * Member function used to update the scale factor of the image to draw.
        * 
        * @param[in] pNewScaleFactor New scale factor to apply.
        */
-      void setScaleFactor ( const unsigned int& pNewScaleFactor );
+      virtual void setScaleFactor ( const unsigned int& pNewScaleFactor );
 
       /**
        * Member function used to set the texture to use while drawing.
        * 
        * @param[in] pNewTexture New texture to use while drawing.
        */
-      void setTexture ( SDL_Texture* pNewTexture );
+      virtual void setTexture ( SDL_Texture* pNewTexture );
 
       /**
        * Virtual member function used to update the element accordingly to the passage of time.
@@ -179,10 +195,11 @@ class VisualElement
       /**
        * Member function used to update the render size after a change in the scale factor.
        */
-      void updateRenderSize ( void );
+      void updateRenderValues ( void );
 
    protected:
-      Position mPosition; /**< Position of the graphic element. */
+      Position mPosition; /**< Position of the graphic element before scaling. */
+      Position mRenderPosition; /**< Position of the graphic element after scaling. */
 
       Size mClipSize;   /**< Size of the area to clip from the texture. */
       Size mRenderSize; /**< Size of the graphic element to be displayed. */

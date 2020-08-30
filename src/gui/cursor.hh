@@ -2,8 +2,9 @@
 # define CURSOR_HH_
 
 # include "animatedsprite.hh"
+# include "visualelement.hh"
 
-class Cursor : public AnimatedSprite
+class Cursor : public VisualElement
 {
    public:
       enum class CursorState
@@ -24,9 +25,30 @@ class Cursor : public AnimatedSprite
       virtual ~Cursor ( void );
 
       /**
-       * Virtual member function used to draw the current figure, if needed.
+       * Virtual member function used to draw the current cursor according to the configuration set.
        */
-      virtual void draw ( void );
+      virtual void draw ( void ) override;
+
+      /**
+      * Member function used to set the required renderer for the game.
+      * 
+      * @param[in] pNewRenderer Renderer used to draw.
+      */
+      virtual void setRenderer ( SDL_Renderer* pNewRenderer ) override;
+
+      /**
+       * Member function used to update the scale factor of the image to draw.
+       * 
+       * @param[in] pNewScaleFactor New scale factor to apply.
+       */
+      virtual void setScaleFactor ( const unsigned int& pNewScaleFactor ) override;
+
+      /**
+       * Member function used to set the texture to use while drawing.
+       * 
+       * @param[in] pNewTexture New texture to use while drawing.
+       */
+      virtual void setTexture ( SDL_Texture* pNewTexture ) override;
 
       /**
        * Member function used to set the current cursor state.
@@ -36,14 +58,15 @@ class Cursor : public AnimatedSprite
       void setState ( const CursorState& pNewCursorState );
 
       /**
-       * Virtual member function used to update the element accordingly to the passage of time.
+       * Member function used to update the current time delta of the frame.
        * 
-       * @param[in] pTimeDelta Update the visual component according to the time passage.
+       * @param[in] pTimeDelta Time difference in current time.
        */
-      virtual void updateTime ( const double& pTimeDelta );
+      virtual void updateTime ( const double& pTimeDelta ) override;
 
    private:
       CursorState mCursorState; /**< Current cursor state, which also affects the current animation. */
+      AnimatedSprite mCursorSprite; /**< Cursor sprite to use, which should be animated. */
 };
 
 # endif

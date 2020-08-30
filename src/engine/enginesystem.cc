@@ -65,7 +65,6 @@ bool EngineSystem::init ( void )
 void EngineSystem::cleanScreen ( void )
 {
 	mRenderSystem->clearScreen ();
-
 	return;
 }
 
@@ -76,9 +75,7 @@ std::shared_ptr< std::queue< SDL_Event > > EngineSystem::readEvents ( void )
 	events_loaded = std::shared_ptr< std::queue< SDL_Event > > ( new std::queue< SDL_Event > () );
 
 	while ( SDL_PollEvent ( &sdl_event ) )
-	{
 		events_loaded->push ( sdl_event );
-	}
 
 	return ( events_loaded );
 }
@@ -104,13 +101,11 @@ void EngineSystem::terminate ( void )
 	mWindowSystem->terminate ();
 	mVideoSystem->terminate ();
 	mDebugSystem->terminate ();
-
 	return;
 }
 
 void EngineSystem::updateScreen ( void )
 {
 	mRenderSystem->updateScreen ();
-
 	return;
 }
