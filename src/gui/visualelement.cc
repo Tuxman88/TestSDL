@@ -19,6 +19,15 @@ VisualElement::Size VisualElement::clipSize ( void ) const
    return ( mClipSize );
 }
 
+void VisualElement::move ( const int& pXDelta , 
+                           const int& pYDelta )
+{
+   mPosition.X += pXDelta;
+   mPosition.Y += pYDelta;
+   updateRenderValues ();
+   return;
+}
+
 VisualElement::Position VisualElement::position ( void ) const
 {
    return ( mPosition );

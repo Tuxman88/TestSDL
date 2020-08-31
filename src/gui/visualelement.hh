@@ -75,6 +75,15 @@ class VisualElement
       virtual void draw ( void ) = 0;
 
       /**
+       * Member function used to move the current coordinates according to the deltas provided.
+       * 
+       * @param[in] pXDelta X movement.
+       * @param[in] pYDelta Y movement.
+       */
+      void move ( const int& pXDelta , 
+                  const int& pYDelta );
+
+      /**
        * Member function used to return the current position of the graphic element.
        * 
        * @returns Position of the element.

@@ -37,6 +37,26 @@ class Map
       void increaseZoom ( void );
 
       /**
+       * Member function used to move the current map down.
+       */
+      void moveDown ( void );
+
+      /**
+       * Member function used to move the current map left.
+       */
+      void moveLeft ( void );
+
+      /**
+       * Member function used to move the current map right.
+       */
+      void moveRight ( void );
+
+      /**
+       * Member function used to move the current map up.
+       */
+      void moveUp ( void );
+
+      /**
        * Member function used to set the current map layout to use.
        * 
        * @param[in] pMapIndex Map index to use for the current map.

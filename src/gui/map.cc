@@ -166,6 +166,110 @@ void Map::increaseZoom ( void )
    return;
 }
 
+void Map::moveDown ( void )
+{
+   std::size_t vertical_size;
+   std::size_t horizontal_size;
+   vertical_size = mCurrentMap.size ();
+   Sea* sea_terrain;
+
+   for ( std::size_t i = 0; i < vertical_size; i++ )
+   {
+      horizontal_size = mCurrentMap[ i ].size ();
+
+      for ( std::size_t j = 0; j < horizontal_size; j++ )
+      {
+         switch ( mCurrentMap[ i ][ j ]->type () )
+         {
+            case Terrain::TerrainType::Sea:
+               sea_terrain = (Sea*)mCurrentMap[ i ][ j ];
+               sea_terrain->move ( 0 , 5 );
+               break;
+         }
+      }
+   }
+
+   return;
+}
+
+void Map::moveLeft ( void )
+{
+   std::size_t vertical_size;
+   std::size_t horizontal_size;
+   vertical_size = mCurrentMap.size ();
+   Sea* sea_terrain;
+
+   for ( std::size_t i = 0; i < vertical_size; i++ )
+   {
+      horizontal_size = mCurrentMap[ i ].size ();
+
+      for ( std::size_t j = 0; j < horizontal_size; j++ )
+      {
+         switch ( mCurrentMap[ i ][ j ]->type () )
+         {
+            case Terrain::TerrainType::Sea:
+               sea_terrain = (Sea*)mCurrentMap[ i ][ j ];
+               sea_terrain->move ( -5 , 0 );
+               break;
+         }
+      }
+   }
+
+   return;
+}
+
+void Map::moveRight ( void )
+{
+   std::size_t vertical_size;
+   std::size_t horizontal_size;
+   vertical_size = mCurrentMap.size ();
+   Sea* sea_terrain;
+
+   for ( std::size_t i = 0; i < vertical_size; i++ )
+   {
+      horizontal_size = mCurrentMap[ i ].size ();
+
+      for ( std::size_t j = 0; j < horizontal_size; j++ )
+      {
+         switch ( mCurrentMap[ i ][ j ]->type () )
+         {
+            case Terrain::TerrainType::Sea:
+               sea_terrain = (Sea*)mCurrentMap[ i ][ j ];
+               sea_terrain->move ( 5 , 0 );
+               break;
+         }
+      }
+   }
+
+   return;
+}
+
+void Map::moveUp ( void )
+{
+   std::size_t vertical_size;
+   std::size_t horizontal_size;
+   vertical_size = mCurrentMap.size ();
+   Sea* sea_terrain;
+
+   for ( std::size_t i = 0; i < vertical_size; i++ )
+   {
+      horizontal_size = mCurrentMap[ i ].size ();
+
+      for ( std::size_t j = 0; j < horizontal_size; j++ )
+      {
+         switch ( mCurrentMap[ i ][ j ]->type () )
+         {
+            case Terrain::TerrainType::Sea:
+               sea_terrain = (Sea*)mCurrentMap[ i ][ j ];
+               sea_terrain->move ( 0 , -5 );
+               break;
+         }
+      }
+   }
+
+   return;
+}
+
 void Map::setCurrentMap ( const unsigned int& pCurrentMap )
 {
    std::size_t vertical_size;

@@ -146,6 +146,10 @@ void Game::processEvents ( std::shared_ptr< std::queue< SDL_Event > > pEventsToP
 				// A key was pressed.
 				switch ( sdl_event.key.keysym.sym )
 				{
+					case SDLK_DOWN:
+						mMap->moveUp ();
+						break;
+
 					case SDLK_ESCAPE:
 						mQuitGame = true;
 						break;
@@ -156,6 +160,18 @@ void Game::processEvents ( std::shared_ptr< std::queue< SDL_Event > > pEventsToP
 
 					case SDLK_KP_PLUS:
 						mMap->increaseZoom ();
+						break;
+
+					case SDLK_LEFT:
+						mMap->moveRight ();
+						break;
+
+					case SDLK_RIGHT:
+						mMap->moveLeft ();
+						break;
+
+					case SDLK_UP:
+						mMap->moveDown ();
 						break;
 
 					case SDLK_v:
