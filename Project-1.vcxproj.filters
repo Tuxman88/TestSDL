@@ -51,9 +51,6 @@
     <ClCompile Include="src\gui\animatedsprite.cc">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
-    <ClCompile Include="src\gui\sea.cc">
-      <Filter>Archivos de origen</Filter>
-    </ClCompile>
     <ClCompile Include="src\gui\terrain.cc">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
@@ -93,9 +90,6 @@
       <Filter>Archivos de origen</Filter>
     </ClInclude>
     <ClInclude Include="src\gui\animatedsprite.hh">
-      <Filter>Archivos de origen</Filter>
-    </ClInclude>
-    <ClInclude Include="src\gui\sea.hh">
       <Filter>Archivos de origen</Filter>
     </ClInclude>
     <ClInclude Include="src\gui\terrain.hh">

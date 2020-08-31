@@ -157,7 +157,6 @@
     <ClCompile Include="src\gui\animatedsprite.cc" />
     <ClCompile Include="src\gui\cursor.cc" />
     <ClCompile Include="src\gui\map.cc" />
-    <ClCompile Include="src\gui\sea.cc" />
     <ClCompile Include="src\gui\terrain.cc" />
     <ClCompile Include="src\gui\visualelement.cc" />
   </ItemGroup>
@@ -173,7 +172,6 @@
     <ClInclude Include="src\gui\animatedsprite.hh" />
     <ClInclude Include="src\gui\cursor.hh" />
     <ClInclude Include="src\gui\map.hh" />
-    <ClInclude Include="src\gui\sea.hh" />
     <ClInclude Include="src\gui\terrain.hh" />
     <ClInclude Include="src\gui\visualelement.hh" />
   </ItemGroup>

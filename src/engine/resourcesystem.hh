@@ -17,7 +17,12 @@ class ResourceSystem : public SystemComponent
          Cursor = 0 ,
          TerrainSeaClear = 1 ,
          TerrainSeaDark = 2 ,
-         TotalIndexes = 3
+         TerrainLandForest = 3 ,
+         TerrainLandGrass = 4 ,
+         TerrainLandSand = 5 ,
+         TerrainLandSnow = 6 ,
+         TerrainLandTech = 7 ,
+         TotalIndexes = 8
       };
 
       /**

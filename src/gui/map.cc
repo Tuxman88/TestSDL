@@ -1,7 +1,5 @@
 # include "map.hh"
 
-# include "sea.hh"
-
 Map::Map ( void )
    : mRenderer ( nullptr ) ,
      mPerspectiveView ( VisualElement::PerspectiveView::TopView ) ,
@@ -118,6 +116,7 @@ void Map::draw ( void )
    std::size_t vertical_size;
    std::size_t horizontal_size;
    vertical_size = mCurrentMap.size ();
+   Terrain* terrain;
 
    for ( std::size_t i = 0; i < vertical_size; i++ )
    {
@@ -125,13 +124,11 @@ void Map::draw ( void )
 
       for ( std::size_t j = 0; j < horizontal_size; j++ )
       {
-         Sea* sea;
-
          switch ( mCurrentMap[ i ][ j ]->type () )
          {
             case Terrain::TerrainType::Sea:
-               sea = (Sea*)mCurrentMap[ i ][ j ];
-               sea->draw ();
+               terrain = (Terrain*)mCurrentMap[ i ][ j ];
+               terrain->draw ();
                break;
          }
       }
@@ -167,20 +164,17 @@ void Map::moveDown ( void )
    std::size_t vertical_size;
    std::size_t horizontal_size;
    vertical_size = mCurrentMap.size ();
-   Sea* sea_terrain;
+   Terrain* terrain;
 
    for ( std::size_t i = 0; i < vertical_size; i++ )
    {
       horizontal_size = mCurrentMap[ i ].size ();
 
       for ( std::size_t j = 0; j < horizontal_size; j++ )
-         switch ( mCurrentMap[ i ][ j ]->type () )
-         {
-            case Terrain::TerrainType::Sea:
-               sea_terrain = (Sea*)mCurrentMap[ i ][ j ];
-               sea_terrain->move ( 0 , 5 );
-               break;
-         }
+      {
+         terrain = (Terrain*)mCurrentMap[ i ][ j ];
+         terrain->move ( 0 , 5 );
+      }
    }
 
    return;
@@ -191,20 +185,17 @@ void Map::moveLeft ( void )
    std::size_t vertical_size;
    std::size_t horizontal_size;
    vertical_size = mCurrentMap.size ();
-   Sea* sea_terrain;
+   Terrain* terrain;
 
    for ( std::size_t i = 0; i < vertical_size; i++ )
    {
       horizontal_size = mCurrentMap[ i ].size ();
 
       for ( std::size_t j = 0; j < horizontal_size; j++ )
-         switch ( mCurrentMap[ i ][ j ]->type () )
-         {
-            case Terrain::TerrainType::Sea:
-               sea_terrain = (Sea*)mCurrentMap[ i ][ j ];
-               sea_terrain->move ( -5 , 0 );
-               break;
-         }
+      {
+         terrain = (Terrain*)mCurrentMap[ i ][ j ];
+         terrain->move ( -5 , 0 );
+      }
    }
 
    return;
@@ -215,20 +206,17 @@ void Map::moveRight ( void )
    std::size_t vertical_size;
    std::size_t horizontal_size;
    vertical_size = mCurrentMap.size ();
-   Sea* sea_terrain;
+   Terrain* terrain;
 
    for ( std::size_t i = 0; i < vertical_size; i++ )
    {
       horizontal_size = mCurrentMap[ i ].size ();
 
       for ( std::size_t j = 0; j < horizontal_size; j++ )
-         switch ( mCurrentMap[ i ][ j ]->type () )
-         {
-            case Terrain::TerrainType::Sea:
-               sea_terrain = (Sea*)mCurrentMap[ i ][ j ];
-               sea_terrain->move ( 5 , 0 );
-               break;
-         }
+      {
+         terrain = (Terrain*)mCurrentMap[ i ][ j ];
+         terrain->move ( 5 , 0 );
+      }
    }
 
    return;
@@ -239,20 +227,17 @@ void Map::moveUp ( void )
    std::size_t vertical_size;
    std::size_t horizontal_size;
    vertical_size = mCurrentMap.size ();
-   Sea* sea_terrain;
+   Terrain* terrain;
 
    for ( std::size_t i = 0; i < vertical_size; i++ )
    {
       horizontal_size = mCurrentMap[ i ].size ();
 
       for ( std::size_t j = 0; j < horizontal_size; j++ )
-         switch ( mCurrentMap[ i ][ j ]->type () )
-         {
-            case Terrain::TerrainType::Sea:
-               sea_terrain = (Sea*)mCurrentMap[ i ][ j ];
-               sea_terrain->move ( 0 , -5 );
-               break;
-         }
+      {
+         terrain = (Terrain*)mCurrentMap[ i ][ j ];
+         terrain->move ( 0 , -5 );
+      }
    }
 
    return;
@@ -292,24 +277,45 @@ void Map::setCurrentMap ( const unsigned int& pCurrentMap )
       for ( std::size_t j = 0; j < horizontal_size; j++ )
       {
          Terrain* new_terrain;
-         new_terrain = nullptr;
+         new_terrain = new Terrain ();
+         new_terrain->setPosition ( current_position );
+         new_terrain->setRenderer ( mRenderer );
 
          switch ( mMapLayouts->at ( pCurrentMap )[ i ][ j ] )
          {
             case 'c':
-               new_terrain = new Sea ();
-               new_terrain->setPosition ( current_position );
                new_terrain->setType ( Terrain::TerrainType::Sea );
-               new_terrain->setRenderer ( mRenderer );
                new_terrain->setTexture ( mResourceSystem->resourceTexture ( ResourceSystem::ResourceIndex::TerrainSeaClear ) );
                break;
 
             case 'd':
-               new_terrain = new Sea ();
-               new_terrain->setPosition ( current_position );
                new_terrain->setType ( Terrain::TerrainType::Sea );
-               new_terrain->setRenderer ( mRenderer );
                new_terrain->setTexture ( mResourceSystem->resourceTexture ( ResourceSystem::ResourceIndex::TerrainSeaDark ) );
+               break;
+
+            case 's':
+               new_terrain->setType ( Terrain::TerrainType::Land );
+               new_terrain->setTexture ( mResourceSystem->resourceTexture ( ResourceSystem::ResourceIndex::TerrainLandSand ) );
+               break;
+
+            case 't':
+               new_terrain->setType ( Terrain::TerrainType::Land );
+               new_terrain->setTexture ( mResourceSystem->resourceTexture ( ResourceSystem::ResourceIndex::TerrainLandTech ) );
+               break;
+
+            case 'g':
+               new_terrain->setType ( Terrain::TerrainType::Land );
+               new_terrain->setTexture ( mResourceSystem->resourceTexture ( ResourceSystem::ResourceIndex::TerrainLandGrass ) );
+               break;
+
+            case 'f':
+               new_terrain->setType ( Terrain::TerrainType::Land );
+               new_terrain->setTexture ( mResourceSystem->resourceTexture ( ResourceSystem::ResourceIndex::TerrainLandForest ) );
+               break;
+
+            case 'n':
+               new_terrain->setType ( Terrain::TerrainType::Land );
+               new_terrain->setTexture ( mResourceSystem->resourceTexture ( ResourceSystem::ResourceIndex::TerrainLandSnow ) );
                break;
          }
 
@@ -331,7 +337,7 @@ void Map::setPerspectiveView ( const VisualElement::PerspectiveView& pNewPerspec
    mPerspectiveView = pNewPerspectiveView;
    std::size_t vertical_size;
    std::size_t horizontal_size;
-   Sea* sea;
+   Terrain* terrain;
    vertical_size = mCurrentMap.size ();
 
    for ( std::size_t i = 0; i < vertical_size; i++ )
@@ -342,8 +348,8 @@ void Map::setPerspectiveView ( const VisualElement::PerspectiveView& pNewPerspec
          switch ( mCurrentMap[ i ][ j ]->type () )
          {
             case Terrain::TerrainType::Sea:
-               sea = (Sea*)mCurrentMap[ i ][ j ];
-               sea->setPerspectiveView ( pNewPerspectiveView );
+               terrain = (Terrain*)mCurrentMap[ i ][ j ];
+               terrain->setPerspectiveView ( pNewPerspectiveView );
                break;
          }
    }

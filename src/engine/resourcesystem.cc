@@ -125,6 +125,7 @@ bool ResourceSystem::loadResourceIndex ( void )
            && !path.empty () )
       {
          int index = FromString ( key );
+         mDebugSystem->logToFile ( "Resource: " + key + " -> " + path );
          mResourceIndexVector.push_back ( static_cast< ResourceIndex > ( index ) );
          mResourceIndex[ static_cast< ResourceIndex > ( index ) ] = path;
       }
