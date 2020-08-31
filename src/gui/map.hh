@@ -22,9 +22,19 @@ class Map
       virtual ~Map ( void );
 
       /**
+       * Member function used to decrease the current zoom level.
+       */
+      void decreaseZoom ( void );
+
+      /**
        * Member function used to draw the current map in the screen, if needed.
        */
       void draw ( void );
+
+      /**
+       * Member function used to increase the current zoom level of the map.
+       */
+      void increaseZoom ( void );
 
       /**
        * Member function used to set the current map layout to use.
@@ -68,11 +78,16 @@ class Map
       */
       void updateTime ( const double& pTimeDelta );
 
+      /**
+      * Member function used to update the current position of the map grid depending on the view type.
+      */
+      void switchViewType ( void );
+
    private:
       /**
-       * Member function used to update the current position of the map grid depending on the view type.
+       * Member function used to apply the view type of the map.
        */
-      void switchViewType ( void );
+      void applyViewType ( void );
 
    private:
       std::shared_ptr< ResourceSystem > mResourceSystem; /**< Shared pointer to the resource system. */
@@ -84,6 +99,8 @@ class Map
       SDL_Renderer* mRenderer; /**< Pointer to the renderer system. */
 
       VisualElement::PerspectiveView mPerspectiveView; /**< Type of view for the map. */
+
+      unsigned int mZoomLevel; /**< Current zoom level used to display the map. */
 };
 
 # endif

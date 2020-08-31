@@ -29,7 +29,6 @@ bool RenderSystem::init ( void )
 {
    mSDLRenderer = SDL_CreateRenderer ( mWindowSystem->rootWindow () , // The renderer requires to be specified which window should render to
                                        -1 , // The driver index. -1 sets the first driver that kind of works
-                                       //SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC ); // We need a hardware accelerated drawing and vsync
                                        SDL_RENDERER_ACCELERATED ); // We need a hardware accelerated drawing and vsync
 
    if ( mSDLRenderer == nullptr )
