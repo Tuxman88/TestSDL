@@ -124,13 +124,8 @@ void Map::draw ( void )
 
       for ( std::size_t j = 0; j < horizontal_size; j++ )
       {
-         switch ( mCurrentMap[ i ][ j ]->type () )
-         {
-            case Terrain::TerrainType::Sea:
-               terrain = (Terrain*)mCurrentMap[ i ][ j ];
-               terrain->draw ();
-               break;
-         }
+         terrain = (Terrain*)mCurrentMap[ i ][ j ];
+         terrain->draw ();
       }
    }
 
@@ -345,13 +340,10 @@ void Map::setPerspectiveView ( const VisualElement::PerspectiveView& pNewPerspec
       horizontal_size = mCurrentMap[ i ].size ();
 
       for ( std::size_t j = 0; j < horizontal_size; j++ )
-         switch ( mCurrentMap[ i ][ j ]->type () )
-         {
-            case Terrain::TerrainType::Sea:
-               terrain = (Terrain*)mCurrentMap[ i ][ j ];
-               terrain->setPerspectiveView ( pNewPerspectiveView );
-               break;
-         }
+      {
+         terrain = (Terrain*)mCurrentMap[ i ][ j ];
+         terrain->setPerspectiveView ( pNewPerspectiveView ); 
+      }
    }
 
    applyViewType ();
