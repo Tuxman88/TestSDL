@@ -107,9 +107,7 @@ void Map::decreaseZoom ( void )
       horizontal_size = mCurrentMap[ i ].size ();
 
       for ( std::size_t j = 0; j < horizontal_size; j++ )
-      {
          mCurrentMap[ i ][ j ]->setScaleFactor ( mZoomLevel );
-      }
    }
 
    return;
@@ -158,9 +156,7 @@ void Map::increaseZoom ( void )
       horizontal_size = mCurrentMap[ i ].size ();
 
       for ( std::size_t j = 0; j < horizontal_size; j++ )
-      {
          mCurrentMap[ i ][ j ]->setScaleFactor ( mZoomLevel );
-      }
    }
 
    return;
@@ -178,7 +174,6 @@ void Map::moveDown ( void )
       horizontal_size = mCurrentMap[ i ].size ();
 
       for ( std::size_t j = 0; j < horizontal_size; j++ )
-      {
          switch ( mCurrentMap[ i ][ j ]->type () )
          {
             case Terrain::TerrainType::Sea:
@@ -186,7 +181,6 @@ void Map::moveDown ( void )
                sea_terrain->move ( 0 , 5 );
                break;
          }
-      }
    }
 
    return;
@@ -204,7 +198,6 @@ void Map::moveLeft ( void )
       horizontal_size = mCurrentMap[ i ].size ();
 
       for ( std::size_t j = 0; j < horizontal_size; j++ )
-      {
          switch ( mCurrentMap[ i ][ j ]->type () )
          {
             case Terrain::TerrainType::Sea:
@@ -212,7 +205,6 @@ void Map::moveLeft ( void )
                sea_terrain->move ( -5 , 0 );
                break;
          }
-      }
    }
 
    return;
@@ -230,7 +222,6 @@ void Map::moveRight ( void )
       horizontal_size = mCurrentMap[ i ].size ();
 
       for ( std::size_t j = 0; j < horizontal_size; j++ )
-      {
          switch ( mCurrentMap[ i ][ j ]->type () )
          {
             case Terrain::TerrainType::Sea:
@@ -238,7 +229,6 @@ void Map::moveRight ( void )
                sea_terrain->move ( 5 , 0 );
                break;
          }
-      }
    }
 
    return;
@@ -256,7 +246,6 @@ void Map::moveUp ( void )
       horizontal_size = mCurrentMap[ i ].size ();
 
       for ( std::size_t j = 0; j < horizontal_size; j++ )
-      {
          switch ( mCurrentMap[ i ][ j ]->type () )
          {
             case Terrain::TerrainType::Sea:
@@ -264,7 +253,6 @@ void Map::moveUp ( void )
                sea_terrain->move ( 0 , -5 );
                break;
          }
-      }
    }
 
    return;
@@ -351,7 +339,6 @@ void Map::setPerspectiveView ( const VisualElement::PerspectiveView& pNewPerspec
       horizontal_size = mCurrentMap[ i ].size ();
 
       for ( std::size_t j = 0; j < horizontal_size; j++ )
-      {
          switch ( mCurrentMap[ i ][ j ]->type () )
          {
             case Terrain::TerrainType::Sea:
@@ -359,7 +346,6 @@ void Map::setPerspectiveView ( const VisualElement::PerspectiveView& pNewPerspec
                sea->setPerspectiveView ( pNewPerspectiveView );
                break;
          }
-      }
    }
 
    applyViewType ();
