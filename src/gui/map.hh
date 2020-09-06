@@ -5,6 +5,7 @@
 # include <SDL.h>
 
 # include "../engine/resourcesystem.hh"
+# include "landunit.hh"
 # include "terrain.hh"
 # include "visualelement.hh"
 
@@ -105,9 +106,42 @@ class Map
 
    private:
       /**
+       * Member function used to apply a specified move vector to the elements of the game.
+       * 
+       * @param[in] pDirectionX Horizontal direction of the movement.
+       * @param[in] pDirectionY Vertical direction of the movement.
+       */
+      void applyMoveVector ( const unsigned int& pDirectionX ,
+                             const unsigned int& pDirectionY );
+
+      /**
        * Member function used to apply the view type of the map.
        */
       void applyViewType ( void );
+
+      /**
+       * Member function used to apply the calculated zoom level.
+       */
+      void applyZoom ( void );
+
+      /**
+       * Member function used to remove the current map, if any.
+       */
+      void deleteMap ( void );
+
+      /**
+       * Member function used to scan the map and populate it with units as needed.
+       */
+      void populateMapUnits ( void );
+
+      /**
+       * Member function used to populate trees in the are specified by the offset.
+       * 
+       * @param[in] pOffsetX Horizontal offset of the area to populate
+       * @param[in] pOffsetY Vertical offet of the area to populate.
+       */
+      void populateTrees ( const std::size_t& pOffsetX ,
+                           const std::size_t& pOffsetY );
 
    private:
       std::shared_ptr< ResourceSystem > mResourceSystem; /**< Shared pointer to the resource system. */
@@ -116,11 +150,14 @@ class Map
 
       std::vector< std::vector< Terrain* > > mCurrentMap; /**< Table with the current map terrain */
 
+      std::vector< LandUnit* > mLandUnits; /**< Vector of pointers to the land units. */
+
       SDL_Renderer* mRenderer; /**< Pointer to the renderer system. */
 
       VisualElement::PerspectiveView mPerspectiveView; /**< Type of view for the map. */
 
-      unsigned int mZoomLevel; /**< Current zoom level used to display the map. */
+      unsigned int mCurrentMapIndex; /**< Current map index of those in the layouts. */
+      unsigned int mZoomLevel;       /**< Current zoom level used to display the map. */
 };
 
 # endif

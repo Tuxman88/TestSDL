@@ -156,6 +156,8 @@
     <ClCompile Include="src\game.cc" />
     <ClCompile Include="src\gui\animatedsprite.cc" />
     <ClCompile Include="src\gui\cursor.cc" />
+    <ClCompile Include="src\gui\foresttree.cc" />
+    <ClCompile Include="src\gui\landunit.cc" />
     <ClCompile Include="src\gui\map.cc" />
     <ClCompile Include="src\gui\terrain.cc" />
     <ClCompile Include="src\gui\visualelement.cc" />
@@ -171,6 +173,8 @@
     <ClInclude Include="src\game.hh" />
     <ClInclude Include="src\gui\animatedsprite.hh" />
     <ClInclude Include="src\gui\cursor.hh" />
+    <ClInclude Include="src\gui\foresttree.hh" />
+    <ClInclude Include="src\gui\landunit.hh" />
     <ClInclude Include="src\gui\map.hh" />
     <ClInclude Include="src\gui\terrain.hh" />
     <ClInclude Include="src\gui\visualelement.hh" />

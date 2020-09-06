@@ -22,7 +22,9 @@ class ResourceSystem : public SystemComponent
          TerrainLandSand = 5 ,
          TerrainLandSnow = 6 ,
          TerrainLandTech = 7 ,
-         TotalIndexes = 8
+         TerrainLandDirt = 8 ,
+         ForestTree = 9 ,
+         TotalIndexes = 10
       };
 
       /**

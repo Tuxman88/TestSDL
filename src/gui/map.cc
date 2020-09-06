@@ -1,14 +1,55 @@
 # include "map.hh"
 
+# include <cstdlib>
+
+# include "foresttree.hh"
+
 Map::Map ( void )
    : mRenderer ( nullptr ) ,
      mPerspectiveView ( VisualElement::PerspectiveView::TopView ) ,
+     mCurrentMapIndex ( 0 ) ,
      mZoomLevel ( 1 )
 {
 }
 
 Map::~Map ( void )
 {
+   deleteMap ();
+}
+
+void Map::applyMoveVector ( const unsigned int& pDirectionX ,
+                            const unsigned int& pDirectionY )
+{
+   std::size_t vertical_size;
+   std::size_t horizontal_size;
+   vertical_size = mCurrentMap.size ();
+   Terrain* terrain;
+
+   for ( std::size_t i = 0; i < vertical_size; i++ )
+   {
+      horizontal_size = mCurrentMap[ i ].size ();
+
+      for ( std::size_t j = 0; j < horizontal_size; j++ )
+      {
+         terrain = (Terrain*)mCurrentMap[ i ][ j ];
+         terrain->move ( pDirectionX , pDirectionY );
+      }
+   }
+
+   std::size_t size;
+   size = mLandUnits.size ();
+   ForestTree* forest_tree;
+
+   for ( std::size_t i = 0; i < size; i++ )
+      switch ( mLandUnits[ i ]->type () )
+      {
+         case LandUnit::LandUnitType::ForestTree:
+            forest_tree = (ForestTree*)mLandUnits[ i ];
+            forest_tree->move ( pDirectionX , pDirectionY );
+            break;
+      }
+
+   return;
 }
 
 void Map::applyViewType ( void )
@@ -89,13 +130,8 @@ void Map::applyViewType ( void )
    return;
 }
 
-void Map::decreaseZoom ( void )
+void Map::applyZoom ( void )
 {
-   mZoomLevel--;
-
-   if ( mZoomLevel == 0 )
-      mZoomLevel = 1;
-
    std::size_t vertical_size;
    std::size_t horizontal_size;
    vertical_size = mCurrentMap.size ();
@@ -107,6 +143,46 @@ void Map::decreaseZoom ( void )
       for ( std::size_t j = 0; j < horizontal_size; j++ )
          mCurrentMap[ i ][ j ]->setScaleFactor ( mZoomLevel );
    }
+
+   std::size_t size;
+   size = mLandUnits.size ();
+
+   for ( std::size_t i = 0; i < size; i++ )
+      mLandUnits[ i ]->setScaleFactor ( mZoomLevel );
+
+   return;
+}
+
+void Map::decreaseZoom ( void )
+{
+   mZoomLevel--;
+
+   if ( mZoomLevel == 0 )
+      mZoomLevel = 1;
+
+   applyZoom ();
+
+   return;
+}
+
+void Map::deleteMap ( void )
+{
+   std::size_t vertical_size;
+   std::size_t horizontal_size;
+   vertical_size = mCurrentMap.size ();
+
+   for ( std::size_t i = 0; i < vertical_size; i++ )
+   {
+      horizontal_size = mCurrentMap[ i ].size ();
+
+      for ( std::size_t j = 0; j < horizontal_size; j++ )
+      {
+         delete mCurrentMap[ i ][ j ];
+         mCurrentMap[ i ][ j ] = nullptr;
+      }
+   }
+
+   mCurrentMap.clear ();
 
    return;
 }
@@ -129,6 +205,19 @@ void Map::draw ( void )
       }
    }
 
+   std::size_t size;
+   size = mLandUnits.size ();
+   ForestTree* forest_tree;
+
+   for ( std::size_t i = 0; i < size; i++ )
+      switch ( mLandUnits[ i ]->type () )
+      {
+         case LandUnit::LandUnitType::ForestTree:
+            forest_tree = (ForestTree*)mLandUnits[ i ];
+            forest_tree->draw ();
+            break;
+      }
+
    return;
 }
 
@@ -139,100 +228,78 @@ void Map::increaseZoom ( void )
    if ( mZoomLevel > 10 )
       mZoomLevel = 10;
    
-   std::size_t vertical_size;
-   std::size_t horizontal_size;
-   vertical_size = mCurrentMap.size ();
-
-   for ( std::size_t i = 0; i < vertical_size; i++ )
-   {
-      horizontal_size = mCurrentMap[ i ].size ();
-
-      for ( std::size_t j = 0; j < horizontal_size; j++ )
-         mCurrentMap[ i ][ j ]->setScaleFactor ( mZoomLevel );
-   }
+   applyZoom ();
 
    return;
 }
 
 void Map::moveDown ( void )
 {
-   std::size_t vertical_size;
-   std::size_t horizontal_size;
-   vertical_size = mCurrentMap.size ();
-   Terrain* terrain;
-
-   for ( std::size_t i = 0; i < vertical_size; i++ )
-   {
-      horizontal_size = mCurrentMap[ i ].size ();
-
-      for ( std::size_t j = 0; j < horizontal_size; j++ )
-      {
-         terrain = (Terrain*)mCurrentMap[ i ][ j ];
-         terrain->move ( 0 , 5 );
-      }
-   }
-
+   applyMoveVector ( 0 , 5 );
    return;
 }
 
 void Map::moveLeft ( void )
 {
-   std::size_t vertical_size;
-   std::size_t horizontal_size;
-   vertical_size = mCurrentMap.size ();
-   Terrain* terrain;
-
-   for ( std::size_t i = 0; i < vertical_size; i++ )
-   {
-      horizontal_size = mCurrentMap[ i ].size ();
-
-      for ( std::size_t j = 0; j < horizontal_size; j++ )
-      {
-         terrain = (Terrain*)mCurrentMap[ i ][ j ];
-         terrain->move ( -5 , 0 );
-      }
-   }
-
+   applyMoveVector ( -5 , 0 );
    return;
 }
 
 void Map::moveRight ( void )
 {
+   applyMoveVector ( 5 , 0 );
+   return;
+}
+
+void Map::moveUp ( void )
+{
+   applyMoveVector ( 0 , -5 );
+   return;
+}
+
+void Map::populateMapUnits ( void )
+{
+   // Iterate over the map and see which kind of terrain do we have here
    std::size_t vertical_size;
    std::size_t horizontal_size;
-   vertical_size = mCurrentMap.size ();
-   Terrain* terrain;
+   vertical_size = mMapLayouts->at ( mCurrentMapIndex ).size ();
 
    for ( std::size_t i = 0; i < vertical_size; i++ )
    {
-      horizontal_size = mCurrentMap[ i ].size ();
+      horizontal_size = mMapLayouts->at ( mCurrentMapIndex )[ i ].size ();
 
       for ( std::size_t j = 0; j < horizontal_size; j++ )
       {
-         terrain = (Terrain*)mCurrentMap[ i ][ j ];
-         terrain->move ( 5 , 0 );
+         switch ( mMapLayouts->at ( mCurrentMapIndex )[ i ][ j ] )
+         {
+            case 'f':
+               populateTrees ( j , i );
+               break;
+         }
       }
    }
 
    return;
 }
 
-void Map::moveUp ( void )
+void Map::populateTrees ( const std::size_t& pOffsetX ,
+                          const std::size_t& pOffsetY )
 {
-   std::size_t vertical_size;
-   std::size_t horizontal_size;
-   vertical_size = mCurrentMap.size ();
-   Terrain* terrain;
-
-   for ( std::size_t i = 0; i < vertical_size; i++ )
+   // The offsets provided corresponds to the coordinates to start on.
+   
+   // Lets generate 10 trees per area
+   for ( unsigned int i = 0; i < 50; i++ )
    {
-      horizontal_size = mCurrentMap[ i ].size ();
+      std::size_t random_x = rand () % 48;
+      std::size_t random_y = rand () % 48;
 
-      for ( std::size_t j = 0; j < horizontal_size; j++ )
-      {
-         terrain = (Terrain*)mCurrentMap[ i ][ j ];
-         terrain->move ( 0 , -5 );
-      }
+      ForestTree* tree = new ForestTree ();
+      tree->setType ( LandUnit::LandUnitType::ForestTree );
+      tree->setTexture ( mResourceSystem->resourceTexture ( ResourceSystem::ResourceIndex::ForestTree ) );
+      tree->setRenderer ( mRenderer );
+      tree->setPosition ( static_cast< unsigned int > ( random_x + ( pOffsetX * 48 ) ), 
+                          static_cast< unsigned int > ( random_y + ( pOffsetY * 48 ) ) );
+      mLandUnits.push_back ( tree );
    }
 
    return;
@@ -240,29 +307,15 @@ void Map::moveUp ( void )
 
 void Map::setCurrentMap ( const unsigned int& pCurrentMap )
 {
-   std::size_t vertical_size;
-   std::size_t horizontal_size;
-   vertical_size = mCurrentMap.size ();
-
-   for ( std::size_t i = 0; i < vertical_size; i++ )
-   {
-      horizontal_size = mCurrentMap[ i ].size ();
-
-      for ( std::size_t j = 0; j < horizontal_size; j++ )
-      {
-         delete mCurrentMap[ i ][ j ];
-         mCurrentMap[ i ][ j ] = nullptr;
-      }
-   }
-
-   mCurrentMap.clear ();
+   deleteMap ();
    VisualElement::Position current_position;
    current_position.X = 0;
    current_position.Y = 0;
+   mCurrentMapIndex = pCurrentMap;
 
    // Iterate over the layout
-   vertical_size = mMapLayouts->at ( pCurrentMap ).size ();
-   horizontal_size = mMapLayouts->at ( pCurrentMap )[ 0 ].size ();
+   std::size_t vertical_size = mMapLayouts->at ( pCurrentMap ).size ();
+   std::size_t horizontal_size = mMapLayouts->at ( pCurrentMap )[ 0 ].size ();
    
    for ( std::size_t i = 0; i < vertical_size; i++ )
    {
@@ -308,6 +361,11 @@ void Map::setCurrentMap ( const unsigned int& pCurrentMap )
                new_terrain->setTexture ( mResourceSystem->resourceTexture ( ResourceSystem::ResourceIndex::TerrainLandForest ) );
                break;
 
+            case 'r':
+               new_terrain->setType ( Terrain::TerrainType::Land );
+               new_terrain->setTexture ( mResourceSystem->resourceTexture ( ResourceSystem::ResourceIndex::TerrainLandDirt ) );
+               break;
+
             case 'n':
                new_terrain->setType ( Terrain::TerrainType::Land );
                new_terrain->setTexture ( mResourceSystem->resourceTexture ( ResourceSystem::ResourceIndex::TerrainLandSnow ) );
@@ -322,6 +380,7 @@ void Map::setCurrentMap ( const unsigned int& pCurrentMap )
       current_position.Y += 48;
    }
 
+   populateMapUnits ();
    applyViewType ();
 
    return;
@@ -345,6 +404,12 @@ void Map::setPerspectiveView ( const VisualElement::PerspectiveView& pNewPerspec
          terrain->setPerspectiveView ( pNewPerspectiveView ); 
       }
    }
+
+   std::size_t size;
+   size = mLandUnits.size ();
+
+   for ( std::size_t i = 0; i < size; i++ )
+      mLandUnits[ i ]->setPerspectiveView ( mPerspectiveView );
 
    applyViewType ();
 
@@ -392,6 +457,14 @@ void Map::updateTime ( const double& pTimeDelta )
 
       for ( std::size_t j = 0; j < horizontal_size; j++ )
          mCurrentMap[ i ][ j ]->updateTime ( pTimeDelta );
+   }
+
+   std::size_t size;
+   size = mLandUnits.size ();
+
+   for ( std::size_t i = 0; i < size; i++ )
+   {
+      mLandUnits[ i ]->updateTime ( pTimeDelta );
    }
 
    return;

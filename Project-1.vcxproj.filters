@@ -57,6 +57,12 @@
     <ClCompile Include="src\gui\map.cc">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
+    <ClCompile Include="src\gui\landunit.cc">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
+    <ClCompile Include="src\gui\foresttree.cc">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\engine\windowsystem.hh">
@@ -96,6 +102,12 @@
       <Filter>Archivos de origen</Filter>
     </ClInclude>
     <ClInclude Include="src\gui\map.hh">
+      <Filter>Archivos de origen</Filter>
+    </ClInclude>
+    <ClInclude Include="src\gui\landunit.hh">
+      <Filter>Archivos de origen</Filter>
+    </ClInclude>
+    <ClInclude Include="src\gui\foresttree.hh">
       <Filter>Archivos de origen</Filter>
     </ClInclude>
   </ItemGroup>

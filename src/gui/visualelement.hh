@@ -67,7 +67,7 @@ class VisualElement
        * 
        * @returns Size of the visual component.
        */
-      Size clipSize ( void ) const;
+      virtual Size clipSize ( void ) const;
 
       /**
        * Pure virtual member function used to draw the current figure in the screen, if needed.
@@ -80,50 +80,50 @@ class VisualElement
        * @param[in] pXDelta X movement.
        * @param[in] pYDelta Y movement.
        */
-      void move ( const int& pXDelta , 
-                  const int& pYDelta );
+      virtual void move ( const int& pXDelta , 
+                          const int& pYDelta );
 
       /**
        * Member function used to return the current position of the graphic element.
        * 
        * @returns Position of the element.
        */
-      Position position ( void ) const;
+      virtual Position position ( void ) const;
 
       /**
        * Member function used to return the current X coordinate of the graphic element.
        * 
        * @returns X coordinate of the graphic element.
        */
-      int positionX ( void ) const;
+      virtual int positionX ( void ) const;
 
       /**
       * Member function used to return the current Y coordinate of the graphic element.
       * 
       * @returns Y coordinate of the graphic element.
       */
-      int positionY ( void ) const;
+      virtual int positionY ( void ) const;
 
       /**
        * Member function used to return the current component size;
        * 
        * @returns Size of the visual component.
        */
-      Size renderSize ( void ) const;
+      virtual Size renderSize ( void ) const;
 
       /**
        * Member function used to return the current scale factor applied to this element.
        * 
        * @returns Unsigned int value that represents the scale factor applied to the visual element when drawn.
        */
-      unsigned int scaleFactor ( void ) const;
+      virtual unsigned int scaleFactor ( void ) const;
 
       /**
        * Member function used to set the current clip size.
        * 
        * @param[in] pNewClipSize New clip size to use.
        */
-      void setClipSize ( const Size& pNewClipSize );
+      virtual void setClipSize ( const Size& pNewClipSize );
 
       /**
        * Member function used to set the current clip size.
@@ -131,22 +131,22 @@ class VisualElement
        * @param[in] pWidth New width of the clip size.
        * @param[in] pHeight New height of the clip size.
        */
-      void setClipSize ( const unsigned int& pWidth ,
-                         const unsigned int& pHeight );
+      virtual void setClipSize ( const unsigned int& pWidth ,
+                                 const unsigned int& pHeight );
 
       /**
        * Member function used to set the current clip size.
        * 
        * @param[in] pNewClipSize New clip size to use.
        */
-      void setClipSizeHeight ( const unsigned int& pNewHeight );
+      virtual void setClipSizeHeight ( const unsigned int& pNewHeight );
 
       /**
        * Member function used to set the current clip size.
        * 
        * @param[in] pNewClipSize New clip size to use.
        */
-      void setClipSizeWidth ( const unsigned int& pNewWidth );
+      virtual void setClipSizeWidth ( const unsigned int& pNewWidth );
 
       /**
        * Member function used to set the current view type.
@@ -160,7 +160,7 @@ class VisualElement
        * 
        * @param[in] pNewPosition New position components.
        */
-      void setPosition ( const Position& pNewPosition );
+      virtual void setPosition ( const Position& pNewPosition );
 
       /**
        * Member function used to set the position of the visual component via individual position values.
@@ -168,22 +168,22 @@ class VisualElement
        * @param[in] pNewX X coordinate to update.
        * @param[in] pNewY Y coordinate to update.
        */
-      void setPosition ( const int& pNewX ,
-                         const int& pNewY );
+      virtual void setPosition ( const int& pNewX ,
+                                 const int& pNewY );
 
       /**
        * Member function used to set the individual X position coordinate.
        * 
        * @param[in] pNewX X coordinate to update.
        */
-      void setPositionX ( const int& pNewX );
+      virtual void setPositionX ( const int& pNewX );
 
       /**
       * Member function used to set the individual Y position coordinate.
       * 
       * @param[in] pNewY Y coordinate to update.
       */
-      void setPositionY ( const int& pNewY );
+      virtual void setPositionY ( const int& pNewY );
 
       /**
        * Member function used to set the required renderer for the game.

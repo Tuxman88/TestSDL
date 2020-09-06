@@ -73,7 +73,7 @@ class AnimatedSprite : public VisualElement
        * 
        * @returns Current animation row index.
        */
-      unsigned int currentAnimationRow ( void ) const;
+      virtual unsigned int currentAnimationRow ( void ) const;
 
       /**
        * Virtual member function used to draw the current figure, if needed.
@@ -83,7 +83,7 @@ class AnimatedSprite : public VisualElement
       /**
        * Member function used to reset the current animation status.
        */
-      void resetAnimation ( void );
+      virtual void resetAnimation ( void );
 
       /**
        * Member function used to set the settings required for the specified animation row.
@@ -91,22 +91,22 @@ class AnimatedSprite : public VisualElement
        * @param[in] pRowToConfigure Row index to configure. If the row specified is new, a new number of settings will be created as copies of this one.
        * @param[in] pAnimationSettings Configuration to set in the animation.
        */
-      void setAnimationSettings ( const unsigned int& pRowToConfigure ,
-                                  const AnimationRowSettings& pAnimationSettings );
+      virtual void setAnimationSettings ( const unsigned int& pRowToConfigure ,
+                                          const AnimationRowSettings& pAnimationSettings );
 
       /**
        * Member function used to set the current animation frame to display.
        * 
        * @param[in] pNewAnimationFrame New animation frame index to set.
        */
-      void setCurrentAnimationFrame ( const unsigned int& pNewAnimationFrame );
+      virtual void setCurrentAnimationFrame ( const unsigned int& pNewAnimationFrame );
 
       /**
        * Member function used to set the current animation row to configure.
        * 
        * @param[in] pNewAnimationRow New animation row to use from those configured.
        */
-      void setCurrentAnimationRow ( const unsigned int& pNewAnimationRow );
+      virtual void setCurrentAnimationRow ( const unsigned int& pNewAnimationRow );
 
       /**
        * Virtual member function used to update the element accordingly to the passage of time.

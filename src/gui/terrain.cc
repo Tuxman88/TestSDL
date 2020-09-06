@@ -2,7 +2,7 @@
 
 Terrain::Terrain ( void )
    : VisualElement () ,
-     mTerrainType ( TerrainType::Sea )
+   mTerrainType ( TerrainType::Sea )
 {
    // Lets create the profile of the animations. I have two profiles basically: Top and isometric view.
 
