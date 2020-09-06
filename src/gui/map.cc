@@ -1,5 +1,6 @@
 # include "map.hh"
 
+# include <algorithm>
 # include <cstdlib>
 
 # include "foresttree.hh"
@@ -278,6 +279,30 @@ void Map::populateMapUnits ( void )
          }
       }
    }
+
+   // Sort the units, so they are drawn in the correct order, from top to bottom, left to right (reading order).
+   sort ( mLandUnits.begin () , mLandUnits.end () , []( LandUnit* pLandUnitLeft , LandUnit* pLandUnitRight )
+                                                    { 
+                                                       unsigned int x1 , x2 , y1 , y2;
+                                                       x1 = pLandUnitLeft->positionX ();
+                                                       y1 = pLandUnitLeft->positionY ();
+                                                       x2 = pLandUnitRight->positionX ();
+                                                       y2 = pLandUnitRight->positionY ();
+
+                                                       // If I'm higher than the other, then yes, I go first.
+                                                       if ( y1 < y2 )
+                                                         return ( true );
+
+                                                       // If I'm lower than the other, then no, I go later
+                                                       if ( y1 > y2 )
+                                                         return ( false );
+
+                                                       // Same height, order based on X
+                                                       if ( x1 < x2 )
+                                                          return ( true );
+                                                       
+                                                       return ( false );
+                                                    } );
 
    return;
 }
