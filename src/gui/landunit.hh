@@ -9,6 +9,7 @@ class LandUnit : public VisualElement
    public:
       enum class LandUnitType
       {
+         None ,
          ForestTree ,
          Mech ,
          Structure
@@ -23,6 +24,15 @@ class LandUnit : public VisualElement
        * Virtual destructor.
        */
       virtual ~LandUnit ( void );
+
+      /**
+       * Member function used to move the current coordinates according to the deltas provided.
+       * 
+       * @param[in] pXDelta X movement.
+       * @param[in] pYDelta Y movement.
+       */
+      virtual void move ( const int& pXDelta , 
+                          const int& pYDelta ) override;
 
       /**
        * Member function used to set the current land unit type.
@@ -41,6 +51,7 @@ class LandUnit : public VisualElement
    protected:
       LandUnitType   mLandUnitType; /**< Type of unit.*/
       AnimatedSprite mUnitSprite;   /**< Sprite to draw unit. */
+      Position       mMoveOffset;   /**< Offset stored to apply in the unit. */
 };
 
 # endif

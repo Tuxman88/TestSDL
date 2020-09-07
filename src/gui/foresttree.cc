@@ -31,7 +31,26 @@ ForestTree::~ForestTree ( void )
 
 void ForestTree::draw ( void )
 {
-   mUnitSprite.setPosition ( mPosition );
+   VisualElement::Position converted_position;
+
+   if ( mPerspectiveView == VisualElement::PerspectiveView::TopView )
+   {
+      converted_position = mPosition;
+      converted_position.X += mMoveOffset.X;
+      converted_position.Y += mMoveOffset.Y;
+      mUnitSprite.setPosition ( converted_position );
+   }
+   else
+   {
+      // Lets make some magic
+      VisualElement::Position converted_position;
+      converted_position.X = mPosition.X - mPosition.Y;
+      converted_position.Y = ( mPosition.Y / 2 ) + ( mPosition.X / 2 );
+      converted_position.X += mMoveOffset.X;
+      converted_position.Y += mMoveOffset.Y;
+      mUnitSprite.setPosition ( converted_position );
+   }
+
    mUnitSprite.draw ();
    return;
 }
@@ -40,6 +59,8 @@ void ForestTree::setPerspectiveView ( const PerspectiveView& pNewPerspectiveView
 {
    mPerspectiveView = pNewPerspectiveView;
    mUnitSprite.setCurrentAnimationRow ( static_cast< unsigned int > ( mPerspectiveView ) );
+   mMoveOffset.X = 0;
+   mMoveOffset.Y = 0;
    return;
 }
 
