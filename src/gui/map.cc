@@ -4,6 +4,7 @@
 # include <cstdlib>
 
 # include "foresttree.hh"
+# include "snowtree.hh"
 
 Map::Map ( void )
    : mRenderer ( nullptr ) ,
@@ -40,6 +41,7 @@ void Map::applyMoveVector ( const unsigned int& pDirectionX ,
    std::size_t size;
    size = mLandUnits.size ();
    ForestTree* forest_tree;
+   SnowTree* snow_tree;
 
    for ( std::size_t i = 0; i < size; i++ )
       switch ( mLandUnits[ i ]->type () )
@@ -47,6 +49,11 @@ void Map::applyMoveVector ( const unsigned int& pDirectionX ,
          case LandUnit::LandUnitType::ForestTree:
             forest_tree = (ForestTree*)mLandUnits[ i ];
             forest_tree->move ( pDirectionX , pDirectionY );
+            break;
+
+         case LandUnit::LandUnitType::SnowTree:
+            snow_tree = (SnowTree*)mLandUnits[ i ];
+            snow_tree->move ( pDirectionX , pDirectionY );
             break;
       }
 
@@ -209,6 +216,7 @@ void Map::draw ( void )
    std::size_t size;
    size = mLandUnits.size ();
    ForestTree* forest_tree;
+   SnowTree* snow_tree;
 
    for ( std::size_t i = 0; i < size; i++ )
       switch ( mLandUnits[ i ]->type () )
@@ -216,6 +224,11 @@ void Map::draw ( void )
          case LandUnit::LandUnitType::ForestTree:
             forest_tree = (ForestTree*)mLandUnits[ i ];
             forest_tree->draw ();
+            break;
+
+         case LandUnit::LandUnitType::SnowTree:
+            snow_tree = (SnowTree*)mLandUnits[ i ];
+            snow_tree->draw ();
             break;
       }
 
@@ -258,6 +271,31 @@ void Map::moveUp ( void )
    return;
 }
 
+void Map::populateForestTrees ( const std::size_t& pOffsetX ,
+                                const std::size_t& pOffsetY )
+{
+   // The offsets provided corresponds to the coordinates to start on.
+
+   // Lets generate up to 50 trees per area
+   std::size_t total_trees = rand () % 50;
+
+   for ( std::size_t i = 0; i < total_trees; i++ )
+   {
+      std::size_t random_x = rand () % 48;
+      std::size_t random_y = rand () % 48;
+
+      ForestTree* tree = new ForestTree ();
+      tree->setType ( LandUnit::LandUnitType::ForestTree );
+      tree->setTexture ( mResourceSystem->resourceTexture ( ResourceSystem::ResourceIndex::ForestTree ) );
+      tree->setRenderer ( mRenderer );
+      tree->setPosition ( static_cast< unsigned int > ( random_x + ( pOffsetX * 48 ) ), 
+                          static_cast< unsigned int > ( random_y + ( pOffsetY * 48 ) ) );
+      mLandUnits.push_back ( tree );
+   }
+
+   return;
+}
+
 void Map::populateMapUnits ( void )
 {
    // Iterate over the map and see which kind of terrain do we have here
@@ -273,8 +311,12 @@ void Map::populateMapUnits ( void )
       {
          switch ( mMapLayouts->at ( mCurrentMapIndex )[ i ][ j ] )
          {
-            case 'f':
-               populateTrees ( j , i );
+            case 'f': // Forest
+               populateForestTrees ( j , i );
+               break;
+
+            case 'n': // Snow
+               populateSnowTrees ( j , i );
                break;
          }
       }
@@ -307,20 +349,22 @@ void Map::populateMapUnits ( void )
    return;
 }
 
-void Map::populateTrees ( const std::size_t& pOffsetX ,
-                          const std::size_t& pOffsetY )
+void Map::populateSnowTrees ( const std::size_t& pOffsetX ,
+                              const std::size_t& pOffsetY )
 {
    // The offsets provided corresponds to the coordinates to start on.
-   
-   // Lets generate 10 trees per area
-   for ( unsigned int i = 0; i < 50; i++ )
+
+   // Lets generate up to 3 trees per area
+   std::size_t total_trees = rand () % 3;
+
+   for ( std::size_t i = 0; i < total_trees; i++ )
    {
       std::size_t random_x = rand () % 48;
       std::size_t random_y = rand () % 48;
 
-      ForestTree* tree = new ForestTree ();
-      tree->setType ( LandUnit::LandUnitType::ForestTree );
-      tree->setTexture ( mResourceSystem->resourceTexture ( ResourceSystem::ResourceIndex::ForestTree ) );
+      SnowTree* tree = new SnowTree ();
+      tree->setType ( LandUnit::LandUnitType::SnowTree );
+      tree->setTexture ( mResourceSystem->resourceTexture ( ResourceSystem::ResourceIndex::SnowTree ) );
       tree->setRenderer ( mRenderer );
       tree->setPosition ( static_cast< unsigned int > ( random_x + ( pOffsetX * 48 ) ), 
                           static_cast< unsigned int > ( random_y + ( pOffsetY * 48 ) ) );

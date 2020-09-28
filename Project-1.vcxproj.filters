@@ -63,6 +63,9 @@
     <ClCompile Include="src\gui\foresttree.cc">
       <Filter>Archivos de origen</Filter>
     </ClCompile>
+    <ClCompile Include="src\gui\snowtree.cc">
+      <Filter>Archivos de origen</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\engine\windowsystem.hh">
@@ -108,6 +111,9 @@
       <Filter>Archivos de origen</Filter>
     </ClInclude>
     <ClInclude Include="src\gui\foresttree.hh">
+      <Filter>Archivos de origen</Filter>
+    </ClInclude>
+    <ClInclude Include="src\gui\snowtree.hh">
       <Filter>Archivos de origen</Filter>
     </ClInclude>
   </ItemGroup>

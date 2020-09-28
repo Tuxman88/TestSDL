@@ -159,6 +159,7 @@
     <ClCompile Include="src\gui\foresttree.cc" />
     <ClCompile Include="src\gui\landunit.cc" />
     <ClCompile Include="src\gui\map.cc" />
+    <ClCompile Include="src\gui\snowtree.cc" />
     <ClCompile Include="src\gui\terrain.cc" />
     <ClCompile Include="src\gui\visualelement.cc" />
   </ItemGroup>
@@ -176,6 +177,7 @@
     <ClInclude Include="src\gui\foresttree.hh" />
     <ClInclude Include="src\gui\landunit.hh" />
     <ClInclude Include="src\gui\map.hh" />
+    <ClInclude Include="src\gui\snowtree.hh" />
     <ClInclude Include="src\gui\terrain.hh" />
     <ClInclude Include="src\gui\visualelement.hh" />
   </ItemGroup>

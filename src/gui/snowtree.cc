@@ -1,6 +1,6 @@
-# include "foresttree.hh"
+# include "snowtree.hh"
 
-ForestTree::ForestTree ( void )
+SnowTree::SnowTree ( void )
    : LandUnit ()
 {
    // Lets create the profile of the animations. I have two profiles basically: Top and isometric view.
@@ -25,11 +25,11 @@ ForestTree::ForestTree ( void )
    mUnitSprite.setAnimationSettings ( 1 , settings );
 }
 
-ForestTree::~ForestTree ( void )
+SnowTree::~SnowTree ( void )
 {
 }
 
-void ForestTree::draw ( void )
+void SnowTree::draw ( void )
 {
    VisualElement::Position converted_position;
 
@@ -55,7 +55,7 @@ void ForestTree::draw ( void )
    return;
 }
 
-void ForestTree::setPerspectiveView ( const PerspectiveView& pNewPerspectiveView )
+void SnowTree::setPerspectiveView ( const PerspectiveView& pNewPerspectiveView )
 {
    mPerspectiveView = pNewPerspectiveView;
    mUnitSprite.setCurrentAnimationRow ( static_cast< unsigned int > ( mPerspectiveView ) );
@@ -64,25 +64,25 @@ void ForestTree::setPerspectiveView ( const PerspectiveView& pNewPerspectiveView
    return;
 }
 
-void ForestTree::setRenderer ( SDL_Renderer* pNewRenderer )
+void SnowTree::setRenderer ( SDL_Renderer* pNewRenderer )
 {
    mUnitSprite.setRenderer ( pNewRenderer );
    return;
 }
 
-void ForestTree::setScaleFactor ( const unsigned int& pNewScaleFactor )
+void SnowTree::setScaleFactor ( const unsigned int& pNewScaleFactor )
 {
    mUnitSprite.setScaleFactor ( pNewScaleFactor );
    return;
 }
 
-void ForestTree::setTexture ( SDL_Texture* pNewTexture )
+void SnowTree::setTexture ( SDL_Texture* pNewTexture )
 {
    mUnitSprite.setTexture ( pNewTexture );
    return;
 }
 
-void ForestTree::updateTime ( const double& pTimeDelta )
+void SnowTree::updateTime ( const double& pTimeDelta )
 {
    mUnitSprite.updateTime ( pTimeDelta );
    return;

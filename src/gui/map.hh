@@ -130,18 +130,27 @@ class Map
       void deleteMap ( void );
 
       /**
-       * Member function used to scan the map and populate it with units as needed.
-       */
-      void populateMapUnits ( void );
+      * Member function used to populate trees in the are specified by the offset.
+      * 
+      * @param[in] pOffsetX Horizontal offset of the area to populate
+      * @param[in] pOffsetY Vertical offet of the area to populate.
+      */
+      void populateForestTrees ( const std::size_t& pOffsetX ,
+                                 const std::size_t& pOffsetY );
 
       /**
-       * Member function used to populate trees in the are specified by the offset.
-       * 
-       * @param[in] pOffsetX Horizontal offset of the area to populate
-       * @param[in] pOffsetY Vertical offet of the area to populate.
+       * Member function used to scan the map and populate it with units as needed.
        */
-      void populateTrees ( const std::size_t& pOffsetX ,
-                           const std::size_t& pOffsetY );
+      void populateMapUnits ( void );      
+
+      /**
+      * Member function used to populate trees in the are specified by the offset.
+      * 
+      * @param[in] pOffsetX Horizontal offset of the area to populate
+      * @param[in] pOffsetY Vertical offet of the area to populate.
+      */
+      void populateSnowTrees ( const std::size_t& pOffsetX ,
+                               const std::size_t& pOffsetY );
 
    private:
       std::shared_ptr< ResourceSystem > mResourceSystem; /**< Shared pointer to the resource system. */

@@ -11,6 +11,7 @@ class LandUnit : public VisualElement
       {
          None ,
          ForestTree ,
+         SnowTree ,
          Mech ,
          Structure
       };
