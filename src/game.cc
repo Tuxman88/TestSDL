@@ -227,6 +227,11 @@ void Game::processEvents ( std::shared_ptr< std::queue< SDL_Event > > pEventsToP
 
 			case SDL_MOUSEWHEEL:
 				// The mouse wheel was used.
+				if ( sdl_event.wheel.y > 0 )
+					mMap->increaseZoom ();
+				else if ( sdl_event.wheel.y < 0 )
+					mMap->decreaseZoom ();
+
 				break;
 
 			default:
