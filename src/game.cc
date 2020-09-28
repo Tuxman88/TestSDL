@@ -185,9 +185,34 @@ void Game::processEvents ( std::shared_ptr< std::queue< SDL_Event > > pEventsToP
 				break;
 
 			case SDL_MOUSEMOTION:
+				// The X position is equal from the last mouse position?
+				if ( sdl_event.motion.x == mCursor->positionX () )
+				{
+					// The mouse X position hasn't moved, but... does the user want to move the cursor to the left?
+					if ( sdl_event.motion.xrel < 0 )
+						// Mouse scroll to the left
+						mMap->moveRight ();
+					else if ( sdl_event.motion.xrel > 0 )
+						// Mouse scroll to the right
+						mMap->moveLeft ();
+				}
+
+				// The Y position is equal from the last mouse position?
+				if ( sdl_event.motion.y == mCursor->positionY () )
+				{
+					// The mouse Y position hasn't moved, but... does the user want to move the cursor to the top?
+					if ( sdl_event.motion.yrel < 0 )
+						// Mouse scroll to the top
+						mMap->moveDown ();
+					else if ( sdl_event.motion.yrel > 0 )
+						// Mouse scroll to the bottom
+						mMap->moveUp ();
+				}
+				
 				// The mouse was moved over the screen.
 				mCursor->setPosition ( sdl_event.motion.x ,
 											  sdl_event.motion.y );
+											  
 				break;
 
 			case SDL_MOUSEBUTTONDOWN:
